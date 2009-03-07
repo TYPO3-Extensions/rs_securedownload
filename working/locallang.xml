@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for extension 'rs_securedownload'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="pi1_title">Secure Download</label>
+			<label index="pi1_plus_wiz_description">Create secure download</label>
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="pi1_title">Sicherer Download</label>
+			<label index="pi1_plus_wiz_description">Erzeugen Sie einen sicheren Download</label>
+		</languageKey>
+	</data>
+</T3locallang>
