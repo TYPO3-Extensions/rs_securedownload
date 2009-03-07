@@ -604,7 +604,7 @@ $db->debugOutput = false;
 		} else {
 			$this->pagelist = '';
 		}
-	}/*}}}*/
+	}
 
 
 }
