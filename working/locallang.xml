@@ -11,7 +11,7 @@
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="pi1_title">Sicherer Download</label>
-			<label index="pi1_plus_wiz_description">Erzeugen Sie einen sicheren Download</label>
+			<label index="pi1_plus_wiz_description">Erzeuge einen sicheren Download</label>
 		</languageKey>
 	</data>
 </T3locallang>

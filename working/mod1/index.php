@@ -279,8 +279,8 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 							$count_logs_all = $count_logs_failure + $count_logs_correct;
 							$count_logs_all_text = ($count_logs_all == 1) ? $LANG->getLL('table_entry') : $LANG->getLL('table_entries');
 
-							$detail_link_correct = '<a href="?SET[function]=3&expand='.$codes_result['uid'].'">'.'<acronym style="border: none" title="'.$LANG->getLL('table_detail').'">'.$image_plus.'</acronym>'.'</a>';
-							$detail_link_failure = '<a href="?SET[function]=2&expand='.$codes_result['uid'].'">'.'<acronym style="border: none" title="'.$LANG->getLL('table_detail').'">'.$image_plus.'</acronym>'.'</a>';
+							$detail_link_correct = '<a href="?id='.$this->id.'&SET[function]=3&expand='.$codes_result['uid'].'">'.'<acronym style="border: none" title="'.$LANG->getLL('table_detail').'">'.$image_plus.'</acronym>'.'</a>';
+							$detail_link_failure = '<a href="?id='.$this->id.'&SET[function]=2&expand='.$codes_result['uid'].'">'.'<acronym style="border: none" title="'.$LANG->getLL('table_detail').'">'.$image_plus.'</acronym>'.'</a>';
 
 							$export_link_correct = '<a href="?format=csv&code='.$codes_result['uid'].'&type=2">'.'<acronym style="border: none" title="'.$LANG->getLL('table_export').'">'.$image_export.'</acronym>'.'</a>';
 							$export_link_failure = '<a href="?format=csv&code='.$codes_result['uid'].'&type=1">'.'<acronym style="border: none" title="'.$LANG->getLL('table_export').'">'.$image_export.'</acronym>'.'</a>';
@@ -293,10 +293,6 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 							$delete_link_correct = '<a href="?id='.$this->id.'&delete=1&code='.$codes_result['uid'].'&type=2" onclick="return confirm(\''.$LANG->getLL('table_delete').' '.$count_logs_correct.' '.$count_logs_correct_text.'?\')">'.'<acronym style="border: none" title="'.$LANG->getLL('table_delete').' '.$count_logs_correct.' '.$count_logs_correct_text.'">'.$image_delete.'</acronym>'.'</a>';
 							$delete_link_failure = '<a href="?id='.$this->id.'&delete=1&code='.$codes_result['uid'].'&type=1" onclick="return confirm(\''.$LANG->getLL('table_delete').' '.$count_logs_failure.' '.$count_logs_failure_text.'?\')">'.'<acronym style="border: none" title="'.$LANG->getLL('table_delete').' '.$count_logs_failure.' '.$count_logs_failure_text.'">'.$image_delete.'</acronym>'.'</a>';
 							$delete_link_all     = '<a href="?id='.$this->id.'&delete=1&code='.$codes_result['uid'].'&type=0" onclick="return confirm(\''.$LANG->getLL('table_delete').' '.$count_logs_all.' '.$count_logs_all_text.'?\')">'.'<acronym style="border: none" title="'.$LANG->getLL('table_delete').' '.$count_logs_all.' '.$count_logs_all_text.'">'.$image_delete.'</acronym>'.'</a>';
-//Overwrite for temporary disabled
-//							$delete_link_correct = '<a href="?delete=1&code='.$codes_result['uid'].'&type=2">'.'<acronym style="border: none" title="'.$LANG->getLL('table_delete').' '.$count_logs_correct_text.' '.$LANG->getLL('coming_soon').'">'.$image_delete.'</acronym>'.'</a>';
-//							$delete_link_failure = '<a href="?delete=1&code='.$codes_result['uid'].'&type=1">'.'<acronym style="border: none" title="'.$LANG->getLL('table_delete').' '.$count_logs_failure_text.' '.$LANG->getLL('coming_soon').'">'.$image_delete.'</acronym>'.'</a>';
-//							$delete_link_all     = '<a href="?delete=1&code='.$codes_result['uid'].'&type=0">'.'<acronym style="border: none" title="'.$LANG->getLL('table_delete').' '.$count_logs_all_text.' '.$LANG->getLL('coming_soon').'">'.$image_delete.'</acronym>'.'</a>';
 
 							$content_inline = '<table border="0" cellpadding="1" cellspacing="0" width="100%">';
 							$content_inline .= sprintf($tableline_inline,$LANG->getLL('table_access_success'),$count_logs_correct,$count_logs_correct_text,$detail_link_correct,$export_link_correct,$delete_link_correct);
@@ -346,11 +342,11 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 						}
 
 						if (t3lib_div::_GET('expand') == $codes_result['uid']) {
-							$link_image = $anchor.'<a href="?expand=">'.$count_text.$image_minus.'</acronym>'.'</a>';
-							$link_entry = '<a href="?expand=">'.$count_text.$count_logs.'</acronym>'.'</a>';
+							$link_image = $anchor.'<a href="?id='.$this->id.'&expand=">'.$count_text.$image_minus.'</acronym>'.'</a>';
+							$link_entry = '<a href="?id='.$this->id.'&expand=">'.$count_text.$count_logs.'</acronym>'.'</a>';
 						} else {
-							$link_image = $anchor.'<a href="?expand='.$codes_result['uid'].'">'.$count_text.$image_plus.'</acronym>'.'</a>';
-							$link_entry = '<a href="?expand='.$codes_result['uid'].'">'.$count_text.$count_logs.'</acronym>'.'</a>';
+							$link_image = $anchor.'<a href="?id='.$this->id.'&expand='.$codes_result['uid'].'">'.$count_text.$image_plus.'</acronym>'.'</a>';
+							$link_entry = '<a href="?id='.$this->id.'&expand='.$codes_result['uid'].'">'.$count_text.$count_logs.'</acronym>'.'</a>';
 						}
 
 						$content .= sprintf($tableline_title1,$color,$link_image,$LANG->getLL('table_title'),$codes_result['title']);
@@ -422,11 +418,11 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 						}
 
 						if (t3lib_div::_GET('expand') == $codes_result['uid']) {
-							$link_image = $anchor.'<a href="?expand=">'.$count_text.$image_minus.'</acronym>'.'</a>';
-							$link_entry = '<a href="?expand=">'.$count_text.$count_logs.'</acronym>'.'</a>';
+							$link_image = $anchor.'<a href="?id='.$this->id.'&expand=">'.$count_text.$image_minus.'</acronym>'.'</a>';
+							$link_entry = '<a href="?id='.$this->id.'&expand=">'.$count_text.$count_logs.'</acronym>'.'</a>';
 						} else {
-							$link_image = $anchor.'<a href="?expand='.$codes_result['uid'].'">'.$count_text.$image_plus.'</acronym>'.'</a>';
-							$link_entry = '<a href="?expand='.$codes_result['uid'].'">'.$count_text.$count_logs.'</acronym>'.'</a>';
+							$link_image = $anchor.'<a href="?id='.$this->id.'&expand='.$codes_result['uid'].'">'.$count_text.$image_plus.'</acronym>'.'</a>';
+							$link_entry = '<a href="?id='.$this->id.'&expand='.$codes_result['uid'].'">'.$count_text.$count_logs.'</acronym>'.'</a>';
 						}
 
 						$content .= sprintf($tableline_title1,$color,$link_image,$LANG->getLL('table_title'),$codes_result['title']);

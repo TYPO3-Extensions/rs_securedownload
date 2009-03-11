@@ -130,6 +130,8 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 			} else {
 				$code_query = $db->exec_SELECTquery('*', 'tx_rssecuredownload_codes', 'uid="' . addslashes($downloadid) . '" AND code="' . addslashes($givenCode) . '"' );
 			}
+			
+			
 
 			$log = $this->UserDataArray();
 			$log['docid'] = $this->piVars['download'];

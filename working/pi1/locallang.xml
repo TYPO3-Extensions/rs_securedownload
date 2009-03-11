@@ -20,7 +20,7 @@
 			<label index="error2">(Dieser Code ist abgelaufen oder noch nicht g&#252;ltig!)</label>
 			<label index="error3">(Dieser Code wurde deaktiviert!)</label>
 <!-- Aendern Sie nicht diese Zeilen - ENDE -->
-			<label index="send_download">Herunterladen</label>
+			<label index="send_download">Download</label>
 			<label index="start_download">Zum Starten des Downloads hier klicken</label>
 		</languageKey>
 	</data>
