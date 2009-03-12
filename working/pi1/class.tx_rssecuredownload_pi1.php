@@ -91,6 +91,7 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 		$this->pi_initPIflexForm();
 		$db = $GLOBALS['TYPO3_DB'];
 		$this->conf = $conf;
+		
 		$this->pi_loadLL();
 
 		// get the extension-manager configuration 
@@ -131,6 +132,7 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 				$code_query = $db->exec_SELECTquery('*', 'tx_rssecuredownload_codes', 'uid="' . addslashes($downloadid) . '" AND code="' . addslashes($givenCode) . '"' );
 			}
 			
+			if ( ($tryall == 0) && ($this->piVars['download'] != $downloadid) ) {break;}
 			
 
 			$log = $this->UserDataArray();
@@ -148,7 +150,7 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 					if ($code['hidden'] == 0) {
 						$content .= '<div class="'.$this->prefixString.'-title"><h2>' . $code['title'] . "</h2></div>\n";	
 						if ($code['description'] != "") {
-							$content .= '<div class="'.$this->prefixString.'-description">' . $code['description'] . "</div><br />\n";
+							$content .= '<div class="'.$this->prefixString.'-description">' . $code['description'] . "</div>\n";
 						}
 
 						if (file_exists('rssecuredownload.php')) {
@@ -166,17 +168,17 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 						break;
 					}
 					else { 
-						$content .= '<div class="'.$this->prefixString.'-error3">' . $this->pi_getLL('error3') . "</div>\n";
+						$content_error = '<div class="'.$this->prefixString.'-error3">' . $this->pi_getLL('error3') . "</div>\n";
 						$log['error'] = 3;
 					} 
 				}
 				else { 
-					$content .= '<div class="'.$this->prefixString.'-error2">' . $this->pi_getLL('error2') . "</div>\n"; 
+					$content_error = '<div class="'.$this->prefixString.'-error2">' . $this->pi_getLL('error2') . "</div>\n"; 
 					$log['error'] = 2;
 				}
 			}
 			else { 
-				$content .= '<div class="'.$this->prefixString.'-error1">' . sprintf($this->pi_getLL('error1'), $givenCode) . "</div>\n"; 
+				$content_error = '<div class="'.$this->prefixString.'-error1">' . sprintf($this->pi_getLL('error1'), $givenCode) . "</div>\n"; 
 				$log['error'] = 1;
 				$log['errortext'] = $givenCode;
 			}
@@ -189,11 +191,12 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 
 				$content .= '<div class="'.$this->prefixString.'-title"><h2>' . $row['title'] . "</h2></div>\n";	
 				if ($row['description'] != "") {
-					$content .= '<div class="'.$this->prefixString.'-description">' . $row['description'] . "</div><br />\n";
+					$content .= '<div class="'.$this->prefixString.'-description">' . $row['description'] . "</div>\n";
 				}
 				if ($tryall == 1) {
 					$downloadid = 0;
 				}
+				$content .= $content_error;
 				if (!empty($row['file'])) {
 					$content .=
 						'<div class="'.$this->prefixString.'-codeform">' . "\n" .
@@ -214,7 +217,7 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 
 				$content .= '<div class="'.$this->prefixString.'-title"><h2>' . $row['title'] . "</h2></div>\n";	
 				if ($row['description'] != "") {
-					$content .= '<div class="'.$this->prefixString.'-description">' . $row['description'] . "</div><br />\n";
+					$content .= '<div class="'.$this->prefixString.'-description">' . $row['description'] . "</div>\n";
 				}
 				if ($tryall == 1) {
 					$downloadid = 0;
