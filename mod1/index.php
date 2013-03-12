@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2008 Rene <rene.staeker@freenet.de>
+*  (c) 2008-2013 Rene <rene.staeker@freenet.de>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -53,6 +53,7 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 
 	/**
 	 * Initializes the Module
+	 *
 	 * @return	void
 	 */
 	function init()	{
@@ -168,7 +169,7 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 
 			// Delete, if requested
 			if ($this->delete) $this->markDeleted();
-			
+
 			// Render content:
 			$this->moduleContent();
 
@@ -230,7 +231,7 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 		$tableline_download1 = '<tr><td rowspan="%s">&nbsp;</td><td BGCOLOR="%s">%s&nbsp;</td><td BGCOLOR="%s">%s&nbsp;</td></tr>';
 		$tableline_download2 = '<tr BGCOLOR="%s"><td>%s&nbsp;</td><td>%s&nbsp;</td></tr>';
 		$tableline_download3 = '<tr><td>&nbsp;</td><td colspan="3" BGCOLOR="%s"><center><b>%s&nbsp;</b></center></td></tr>';
-		
+
 		$query_pagelist = ' AND pid IN ('.$this->pagelist.')';
 		$query_pagelist = '';
 
@@ -308,8 +309,8 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 					$error = $LANG->getLL('no-download-defined');
 				}
 
-				if (!empty($error)) { 
-					$content .= $error; 
+				if (!empty($error)) {
+					$content .= $error;
 				}
 				$this->content.=$this->doc->section($LANG->getLL('function1-description'),$content,0,1);
 
@@ -385,8 +386,8 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 					$error = $LANG->getLL('no-download-defined');
 				}
 
-				if (!empty($error)) { 
-					$content .= $error; 
+				if (!empty($error)) {
+					$content .= $error;
 				}
 				$this->content.=$this->doc->section($LANG->getLL('function2-description'),$content,0,1);
 			break;
@@ -460,8 +461,8 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 					$error = $LANG->getLL('no-download-defined');
 				}
 
-				if (!empty($error)) { 
-					$content .= $error; 
+				if (!empty($error)) {
+					$content .= $error;
 				}
 				$this->content.=$this->doc->section($LANG->getLL('function3-description'),$content,0,1);
 			break;
@@ -469,16 +470,16 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 	}
 
 	/**
-	 * markDeleted 
-	 * 
+	 * markDeleted
+	 *
+	 * @return	void
 	 * @access public
-	 * @return void
 	 */
 	function markDeleted() {
 		global $LANG;
 		$db =& $GLOBALS['TYPO3_DB'];
 $db->debugOutput = true;
-		
+
 		switch($this->deleteType)	{
 			case 2:
 				$update_result = $db->exec_UPDATEquery('tx_rssecuredownload_logs','docid='.$this->deleteCode.' AND error='.'0',array('deleted'=>'1'));
@@ -495,11 +496,11 @@ $db->debugOutput = false;
 	}
 
 	/**
-	 * addCsvCol 
-	 * 
-	 * @param string $content 
+	 * addCsvCol
+	 *
+	 * @param	string		$content
+	 * @return	void
 	 * @access public
-	 * @return void
 	 */
 	function addCsvCol($content='') {
 		$this->csvContent[$this->currentRowNumber][$this->currentColNumber] = $content;
@@ -507,10 +508,10 @@ $db->debugOutput = false;
 	}
 
 	/**
-	 * addCsvRow 
-	 * 
+	 * addCsvRow
+	 *
+	 * @return	void
 	 * @access public
-	 * @return void
 	 */
 	function addCsvRow() {
 		$this->currentRowNumber++;
@@ -519,16 +520,16 @@ $db->debugOutput = false;
 	}
 
 	/**
-	 * createCSV 
-	 * 
+	 * createCSV
+	 *
+	 * @return	void
 	 * @access public
-	 * @return void
 	 */
 	function createCSV() {
 		global $LANG;
 		$db =& $GLOBALS['TYPO3_DB'];
 $db->debugOutput = true;
-		
+
 		switch($this->csvOutputType)	{
 			case 2:
 				$logs_result = $db->exec_SELECTquery('*', 'tx_rssecuredownload_logs','docid='.$this->deleteCode.' AND error='.'0'.' AND deleted='.'0');
@@ -546,10 +547,10 @@ $db->debugOutput = false;
 	}
 
 	/**
-	 * outputCSV 
-	 * 
+	 * outputCSV
+	 *
+	 * @return	void
 	 * @access public
-	 * @return void
 	 */
 	function outputCSV() {
 		// Set Excel as default application
@@ -563,7 +564,7 @@ $db->debugOutput = false;
 
 		$content = '';
 		foreach ($this->csvContent as $row) {
-			//function csvValues($row,$delim=',',$quote='"') 
+			//function csvValues($row,$delim=',',$quote='"')
 			$content .= t3lib_div::csvValues($row) . "\n";
 		}
 
@@ -577,13 +578,13 @@ $db->debugOutput = false;
 	}
 
 	/**
-	 * getSubPages 
+	 * getSubPages
 	 *
-	 * returns commalist of all subpages of a given page 
+	 * returns commalist of all subpages of a given page
 	 * works recursive
 	 * Does explicitly not check for hidden pages and restricted access!
-	 * 
-	 * @param int $page_uid 
+	 *
+	 * @param int $page_uid
 	 * @access public
 	 * @return void
 	 */

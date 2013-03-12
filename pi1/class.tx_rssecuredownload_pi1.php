@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2008 Rene <typo3@rs-softweb.de>
+*  (c) 2008-2013 Rene <typo3@rs-softweb.de>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -37,12 +37,13 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 	var $prefixString  = 'tx-rssecuredownload-pi1'; // Same as class name, but "_" replaced with "-" (used for names)
 	var $scriptRelPath = 'pi1/class.tx_rssecuredownload_pi1.php';	// Path to this script relative to the extension dir.
 	var $extKey        = 'rs_securedownload';	// The extension key.
-	
+
 	/**
 	 * Get value from FlexForm
-	 * @param	string	$field: The field name
-	 * @param	string	$sheet: The sheet with the field
-	 * @return	The value of selected FlexForm field
+	 *
+	 * @param	string		$field: The field name
+	 * @param	string		$sheet: The sheet with the field
+	 * @return	The		value of selected FlexForm field
 	 */
 	function FF($field, $sheet='') {
 		$result = "";
@@ -57,7 +58,8 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 
 	/**
 	 * Returns the data of the User-Computer
-	 * @return	Array with the user-computer data
+	 *
+	 * @return	Array		with the user-computer data
 	 */
 	function UserDataArray() {
 		$result = array();
@@ -80,9 +82,9 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 	/**
 	 * Main method of the PlugIn
 	 *
-	 * @param	string	$content: The content of the PlugIn
+	 * @param	string		$content: The content of the PlugIn
 	 * @param	array		$conf: The PlugIn Configuration
-	 * @return	The content that should be displayed on the website
+	 * @return	The		content that should be displayed on the website
 	 */
 	function main($content,$conf)	{
 		global $LANG;
@@ -91,10 +93,10 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 		$this->pi_initPIflexForm();
 		$db = $GLOBALS['TYPO3_DB'];
 		$this->conf = $conf;
-		
+
 		$this->pi_loadLL();
 
-		// get the extension-manager configuration 
+		// get the extension-manager configuration
 		$this->extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['rs_securedownload']);
 		if (!isset($this->extConf['enableIpLogging'])) {
 			$this->extConf['enableIpLogging'] = 0;
@@ -112,7 +114,7 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 		//get data from flexform
 		$tryall = $this->FF('tryall','general');
 		$downloadid = $this->FF('downloadselect','general');
-		
+
 		if ($this->piVars['action'] != "") {
 			$action = $this->piVars['action'];
 			$givenCode = $this->piVars['code'];
@@ -121,7 +123,7 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 			$action = "getCode";
 		}
 
-		$content = "\n";	
+		$content = "\n";
 
 		switch ($action) {
 
@@ -131,24 +133,24 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 			} else {
 				$code_query = $db->exec_SELECTquery('*', 'tx_rssecuredownload_codes', 'uid="' . addslashes($downloadid) . '" AND code="' . addslashes($givenCode) . '"' );
 			}
-			
+
 			if ( ($tryall == 0) && ($this->piVars['download'] != $downloadid) ) {break;}
-			
+
 
 			$log = $this->UserDataArray();
 			$log['docid'] = $this->piVars['download'];
 			$log['pid'] = $pid;
 
 			if ($db->sql_num_rows($code_query) > 0) {
-				$code = $db->sql_fetch_assoc($code_query); 
+				$code = $db->sql_fetch_assoc($code_query);
 
-				if ( ($code['starttime'] == 0 && $code['endtime'] == 0 ) || 
-						 ($code['starttime'] == 0 && date('Y-m-d',$code['endtime']) >= date('Y-m-d',strtotime(date("Y-m-d"))) ) || 
-						 (date('Y-m-d',$code['starttime']) <= date('Y-m-d',strtotime(date("Y-m-d"))) && $code['endtime'] == 0 ) || 
+				if ( ($code['starttime'] == 0 && $code['endtime'] == 0 ) ||
+						 ($code['starttime'] == 0 && date('Y-m-d',$code['endtime']) >= date('Y-m-d',strtotime(date("Y-m-d"))) ) ||
+						 (date('Y-m-d',$code['starttime']) <= date('Y-m-d',strtotime(date("Y-m-d"))) && $code['endtime'] == 0 ) ||
 						 (date('Y-m-d',$code['starttime']) <= date('Y-m-d',strtotime(date("Y-m-d"))) && date('Y-m-d',$code['endtime']) >= date('Y-m-d',strtotime(date("Y-m-d"))) ) )
 				{
 					if ($code['hidden'] == 0) {
-						$content .= '<div class="'.$this->prefixString.'-title"><h2>' . $code['title'] . "</h2></div>\n";	
+						$content .= '<div class="'.$this->prefixString.'-title"><h2>' . $code['title'] . "</h2></div>\n";
 						if ($code['description'] != "") {
 							$content .= '<div class="'.$this->prefixString.'-description">' . $code['description'] . "</div>\n";
 						}
@@ -163,22 +165,22 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 
 						//set data in session for download.php
 						session_start();
-						$_SESSION[$this->prefixId]['file'] = $pathUploads.$code['file']; 
+						$_SESSION[$this->prefixId]['file'] = $pathUploads.$code['file'];
 						$_SESSION[$this->prefixId]['title'] = $code['file'];
 						break;
 					}
-					else { 
+					else {
 						$content_error = '<div class="'.$this->prefixString.'-error3">' . $this->pi_getLL('error3') . "</div>\n";
 						$log['error'] = 3;
-					} 
+					}
 				}
-				else { 
-					$content_error = '<div class="'.$this->prefixString.'-error2">' . $this->pi_getLL('error2') . "</div>\n"; 
+				else {
+					$content_error = '<div class="'.$this->prefixString.'-error2">' . $this->pi_getLL('error2') . "</div>\n";
 					$log['error'] = 2;
 				}
 			}
-			else { 
-				$content_error = '<div class="'.$this->prefixString.'-error1">' . sprintf($this->pi_getLL('error1'), $givenCode) . "</div>\n"; 
+			else {
+				$content_error = '<div class="'.$this->prefixString.'-error1">' . sprintf($this->pi_getLL('error1'), $givenCode) . "</div>\n";
 				$log['error'] = 1;
 				$log['errortext'] = $givenCode;
 			}
@@ -189,7 +191,7 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 			if ($db->sql_num_rows($query_local) == 1) {
 				$row = $db->sql_fetch_assoc($query_local);
 
-				$content .= '<div class="'.$this->prefixString.'-title"><h2>' . $row['title'] . "</h2></div>\n";	
+				$content .= '<div class="'.$this->prefixString.'-title"><h2>' . $row['title'] . "</h2></div>\n";
 				if ($row['description'] != "") {
 					$content .= '<div class="'.$this->prefixString.'-description">' . $row['description'] . "</div>\n";
 				}
@@ -215,7 +217,7 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 			if ($db->sql_num_rows($query_local) == 1) {
 				$row = $db->sql_fetch_assoc($query_local);
 
-				$content .= '<div class="'.$this->prefixString.'-title"><h2>' . $row['title'] . "</h2></div>\n";	
+				$content .= '<div class="'.$this->prefixString.'-title"><h2>' . $row['title'] . "</h2></div>\n";
 				if ($row['description'] != "") {
 					$content .= '<div class="'.$this->prefixString.'-description">' . $row['description'] . "</div>\n";
 				}
@@ -237,13 +239,10 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 			break;
 		}
 
-
 		return $this->pi_wrapInBaseClass($content);
 	}
-	
+
 }
-
-
 
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/rs_securedownload/pi1/class.tx_rssecuredownload_pi1.php'])	{
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/rs_securedownload/pi1/class.tx_rssecuredownload_pi1.php']);
