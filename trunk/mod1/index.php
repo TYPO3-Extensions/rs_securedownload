@@ -81,7 +81,7 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 		$this->delete = (t3lib_div::_GET('delete') == '1') ? true : false;
 		// get the code for delete
 		$this->deleteCode = t3lib_div::_GET('code');
-		// get the type for delete (0=all, 1=failure, 2=correct) )
+		// get the type for delete (0=all, 1=failure, 2=correct, 3=single) )
 		$this->deleteType = t3lib_div::_GET('type');
 	}
 
@@ -226,13 +226,12 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 		$color2 = '#DDDDDD';
 		$brd_dot = ' style="border-bottom:1px dotted grey;padding:2px" ';
 		$brd_full= ' style="border-bottom:1px solid black;padding:2px" ';
-		$tableline_spacer = '<tr><td>&nbsp;</td><td colspan="3" BGCOLOR="%s"><hr></td></tr>';
-		$tableline_title1 = '<tr BGCOLOR="%s"><td %s width="10" align="center" valign="top">%s</td><td %s width="10" valign="top">%s&nbsp;</td><td %s colspan="2">%s&nbsp;</td></tr>';
+		$tableline_title1 = '<tr BGCOLOR="%s"><td %s width="10" align="center" valign="top">%s</td><td %s width="10" valign="top">%s&nbsp;</td><td %s colspan="2">%s&nbsp;</td><td %s width="10" align="center" valign="middle">&nbsp;</td></tr>';
 		$tableline_title2 = '<tr BGCOLOR="%s"><td %s width="10" align="center" valign="top">%s</td><td %s width="10" valign="top">%s&nbsp;</td><td %s colspan="2">%s&nbsp;</td></tr>';
 		$tableline_title3 = '<tr BGCOLOR="%s"><td %s width="10" align="center" valign="top">&nbsp;</td><td %s align="center" valign="top" colspan="3">%s</td></tr>';
-		$tableline_download1 = '<tr><td %srowspan="%s" align="right">%s&nbsp;</td><td %s BGCOLOR="%s">%s&nbsp;</td><td %s colspan="2" BGCOLOR="%s">%s&nbsp;</td></tr>';
+		$tableline_download1 = '<tr><td %srowspan="%s" align="right">%s&nbsp;</td><td %s BGCOLOR="%s">%s&nbsp;</td><td %s colspan="2" BGCOLOR="%s">%s&nbsp;</td><td %srowspan="%s" align="center">%s</td></tr>';
 		$tableline_download2 = '<tr BGCOLOR="%s"><td %s>%s&nbsp;</td><td %s colspan="2">%s&nbsp;</td></tr>';
-		$tableline_download3 = '<tr><td %s align="right">%s&nbsp;</td><td %s colspan="3" BGCOLOR="%s">%s&nbsp;</td></tr>';
+		$tableline_download3 = '<tr><td %s align="right">%s&nbsp;</td><td %s colspan="4" BGCOLOR="%s">%s&nbsp;</td></tr>';
 
 		$query_pagelist = ' AND pid IN ('.$this->pagelist.')';
 		$query_pagelist = '';
@@ -352,20 +351,21 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 							$link_image = $anchor.'<a href="?id='.$this->id.'&expand='.$codes_result['uid'].'">'.$count_text.$image_plus.'</acronym>'.'</a>';
 						}
 						
-						$content .= sprintf($tableline_title1,$color,$brd_dot,$link_image,$brd_dot,$LANG->getLL('table_title'),$brd_dot,$codes_result['title']);
-						$content .= sprintf($tableline_title2,$color,$brd_dot,'&nbsp;',$brd_dot,$LANG->getLL('table_description'),$brd_dot,$codes_result['description']);
+						$content .= sprintf($tableline_title1,$color,$brd_dot,$link_image,$brd_dot,$LANG->getLL('table_title'),$brd_dot,$codes_result['title'],$brd_dot);
+						$content .= sprintf($tableline_title1,$color,$brd_dot,'&nbsp;',$brd_dot,$LANG->getLL('table_description'),$brd_dot,$codes_result['description'],$brd_dot);
 						if ($codes_result['deleted'] == 1) {
-							$content .= sprintf($tableline_title2,$color,$brd_dot,'&nbsp;',$brd_dot,'&nbsp;',$brd_dot,'<span style="color: red;">'.$LANG->getLL('table_deleted').'!!</span>');
+							$content .= sprintf($tableline_title1,$color,$brd_dot,'&nbsp;',$brd_dot,'&nbsp;',$brd_dot,'<span style="color: red;">'.$LANG->getLL('table_deleted').'!!</span>',$brd_dot);
 						}
 
 						if ((t3lib_div::_GET('expand') == $codes_result['uid'])) {
 							if ($count_logs > 0) {
 								for ($i_logs = 1; $i_logs <= $count_logs; $i_logs++) {
 									$logs_result = $db->sql_fetch_assoc($logs_query);
+									$link_delete = '<a href="?id='.$this->id.'&delete=1&code='.$logs_result['uid'].'&type=3&expand='.$codes_result['uid'].'" onclick="return confirm(\''.$LANG->getLL('table_delete_this').'?\')">'.'<acronym style="border: none" title="'.$LANG->getLL('table_delete_this').'">'.$image_delete.'</acronym>'.'</a>';
 									if ($i_logs < $count_logs) {
-										$content .= sprintf($tableline_download1,$brd_dot,5,$i_logs,$brd_dot,$color,$LANG->getLL('table_datetime'),$brd_dot,$color,date($LANG->getLL('table_datetime_format'),$logs_result['accesstime']));
+										$content .= sprintf($tableline_download1,$brd_dot,5,$i_logs,$brd_dot,$color,$LANG->getLL('table_datetime'),$brd_dot,$color,date($LANG->getLL('table_datetime_format'),$logs_result['accesstime']),$brd_dot,5,$link_delete);
 									} else {
-										$content .= sprintf($tableline_download1,$brd_full,5,$i_logs,$brd_dot,$color,$LANG->getLL('table_datetime'),$brd_dot,$color,date($LANG->getLL('table_datetime_format'),$logs_result['accesstime']));
+										$content .= sprintf($tableline_download1,$brd_full,5,$i_logs,$brd_dot,$color,$LANG->getLL('table_datetime'),$brd_dot,$color,date($LANG->getLL('table_datetime_format'),$logs_result['accesstime']),$brd_full,5,$link_delete);
 									};
 									$content .= sprintf($tableline_download2,$color,$brd_dot,$LANG->getLL('table_r_browser'),$brd_dot,$logs_result['rbrowser']);
 									if ($logs_result['ripadress'] <> "") {
@@ -436,20 +436,21 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 							$link_image = $anchor.'<a href="?id='.$this->id.'&expand='.$codes_result['uid'].'">'.$count_text.$image_plus.'</acronym>'.'</a>';
 						}
 						
-						$content .= sprintf($tableline_title1,$color,$brd_dot,$link_image,$brd_dot,$LANG->getLL('table_title'),$brd_dot,$codes_result['title']);
-						$content .= sprintf($tableline_title2,$color,$brd_dot,'&nbsp;',$brd_dot,$LANG->getLL('table_description'),$brd_dot,$codes_result['description']);
+						$content .= sprintf($tableline_title1,$color,$brd_dot,$link_image,$brd_dot,$LANG->getLL('table_title'),$brd_dot,$codes_result['title'],$brd_dot);
+						$content .= sprintf($tableline_title1,$color,$brd_dot,'&nbsp;',$brd_dot,$LANG->getLL('table_description'),$brd_dot,$codes_result['description'],$brd_dot);
 						if ($codes_result['deleted'] == 1) {
-							$content .= sprintf($tableline_title2,$color,$brd_dot,'&nbsp;',$brd_dot,'&nbsp;',$brd_dot,'<span style="color: red;">'.$LANG->getLL('table_deleted').'!!</span>');
+							$content .= sprintf($tableline_title1,$color,$brd_dot,'&nbsp;',$brd_dot,'&nbsp;',$brd_dot,'<span style="color: red;">'.$LANG->getLL('table_deleted').'!!</span>',$brd_dot);
 						}
 
 						if ((t3lib_div::_GET('expand') == $codes_result['uid'])) {
 							if ($count_logs > 0) {
 								for ($i_logs = 1; $i_logs <= $count_logs; $i_logs++) {
 									$logs_result = $db->sql_fetch_assoc($logs_query);
+									$link_delete = '<a href="?id='.$this->id.'&delete=1&code='.$logs_result['uid'].'&type=3&expand='.$codes_result['uid'].'" onclick="return confirm(\''.$LANG->getLL('table_delete_this').'?\')">'.'<acronym style="border: none" title="'.$LANG->getLL('table_delete_this').'">'.$image_delete.'</acronym>'.'</a>';
 									if ($i_logs < $count_logs) {
-										$content .= sprintf($tableline_download1,$brd_dot,4,$i_logs,$brd_dot,$color,$LANG->getLL('table_datetime'),$brd_dot,$color,date($LANG->getLL('table_datetime_format'),$logs_result['accesstime']));
+										$content .= sprintf($tableline_download1,$brd_dot,4,$i_logs,$brd_dot,$color,$LANG->getLL('table_datetime'),$brd_dot,$color,date($LANG->getLL('table_datetime_format'),$logs_result['accesstime']),$brd_dot,4,$link_delete);
 									} else {
-										$content .= sprintf($tableline_download1,$brd_full,4,$i_logs,$brd_dot,$color,$LANG->getLL('table_datetime'),$brd_dot,$color,date($LANG->getLL('table_datetime_format'),$logs_result['accesstime']));
+										$content .= sprintf($tableline_download1,$brd_full,4,$i_logs,$brd_dot,$color,$LANG->getLL('table_datetime'),$brd_dot,$color,date($LANG->getLL('table_datetime_format'),$logs_result['accesstime']),$brd_full,4,$link_delete);
 									};
 									$content .= sprintf($tableline_download2,$color,$brd_dot,$LANG->getLL('table_r_browser'),$brd_dot,$logs_result['rbrowser']);
 									if ($logs_result['ripadress'] <> "") {
@@ -497,9 +498,11 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 	function markDeleted() {
 		global $LANG;
 		$db =& $GLOBALS['TYPO3_DB'];
-$db->debugOutput = true;
 
 		switch($this->deleteType)	{
+			case 3:
+				$update_result = $db->exec_UPDATEquery('tx_rssecuredownload_logs','uid='.$this->deleteCode,array('deleted'=>'1'));
+			break;
 			case 2:
 				$update_result = $db->exec_UPDATEquery('tx_rssecuredownload_logs','docid='.$this->deleteCode.' AND error='.'0',array('deleted'=>'1'));
 			break;
@@ -510,8 +513,6 @@ $db->debugOutput = true;
 				$update_result = $db->exec_UPDATEquery('tx_rssecuredownload_logs','docid='.$this->deleteCode,array('deleted'=>'1'));
 			break;
 		}
-$db->debugOutput = false;
-//$db->explainOutput = false;
 	}
 
 	/**

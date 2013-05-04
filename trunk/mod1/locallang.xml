@@ -42,6 +42,7 @@
 			<label index="table_detail">show details</label>
 			<label index="table_export">export to CSV</label>
 			<label index="table_delete">Delete</label>
+			<label index="table_delete_this">Delete these entry</label>
 			<label index="coming_soon"> (coming soon)</label>
 		</languageKey>
 		<languageKey index="de" type="array">
@@ -81,6 +82,7 @@
 			<label index="table_detail">Zeige Details</label>
 			<label index="table_export">Exportiere in CSV</label>
 			<label index="table_delete">L&#246;sche</label>
+			<label index="table_delete_this">L&#246;sche diesen Eintrag</label>
 			<label index="coming_soon"> (kommt demn&#228;chst)</label>
 		</languageKey>
 	</data>
