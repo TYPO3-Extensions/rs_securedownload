@@ -39,7 +39,7 @@ $BE_USER->modAccess($MCONF,1);	// This checks permissions and exits if the users
 /**
  * Module 'Secure Download' for the 'rs_securedownload' extension.
  *
- * @author	Rene <rene.staeker@freenet.de>
+ * @author	Rene <typo3@rs-softweb.de>
  * @package	TYPO3
  * @subpackage	tx_rssecuredownload
  */
@@ -120,7 +120,7 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 		if (($this->id && $access))	{
 
 			// Draw the header.
-			$this->doc = t3lib_div::makeInstance('mediumDoc');
+			$this->doc = t3lib_div::makeInstance('template');
 			$this->doc->backPath = $BACK_PATH;
 			$this->doc->form='<form action="" method="POST">';
 
@@ -182,7 +182,7 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 		} else {
 				// If no access or if ID == zero
 
-			$this->doc = t3lib_div::makeInstance('mediumDoc');
+			$this->doc = t3lib_div::makeInstance('template');
 			$this->doc->backPath = $BACK_PATH;
 
 			$this->content.=$this->doc->startPage($LANG->getLL('title'));
@@ -224,13 +224,15 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 		$image_export = '<image src="../res/export.gif">';
 		$color1 = '#CCCCCC';
 		$color2 = '#DDDDDD';
+		$brd_dot = ' style="border-bottom:1px dotted grey;padding:2px" ';
+		$brd_full= ' style="border-bottom:1px solid black;padding:2px" ';
 		$tableline_spacer = '<tr><td>&nbsp;</td><td colspan="3" BGCOLOR="%s"><hr></td></tr>';
-		$tableline_title1 = '<tr BGCOLOR="%s"><td width="10" align="center" valign="top">%s</td><td width="10" valign="top">%s&nbsp;</td><td colspan="2">%s&nbsp;</td></tr>';
-		$tableline_title2 = '<tr BGCOLOR="%s"><td width="10" align="center" valign="top">%s</td><td width="10" valign="top">%s&nbsp;</td><td colspan="2">%s&nbsp;</td></tr>';
-		$tableline_title3 = '<tr BGCOLOR="%s"><td width="10" align="center" valign="top">&nbsp;</td><td align="center" valign="top" colspan="3">%s</td></tr>';
-		$tableline_download1 = '<tr><td rowspan="%s">&nbsp;</td><td BGCOLOR="%s">%s&nbsp;</td><td BGCOLOR="%s">%s&nbsp;</td></tr>';
-		$tableline_download2 = '<tr BGCOLOR="%s"><td>%s&nbsp;</td><td>%s&nbsp;</td></tr>';
-		$tableline_download3 = '<tr><td>&nbsp;</td><td colspan="3" BGCOLOR="%s"><center><b>%s&nbsp;</b></center></td></tr>';
+		$tableline_title1 = '<tr BGCOLOR="%s"><td %s width="10" align="center" valign="top">%s</td><td %s width="10" valign="top">%s&nbsp;</td><td %s colspan="2">%s&nbsp;</td></tr>';
+		$tableline_title2 = '<tr BGCOLOR="%s"><td %s width="10" align="center" valign="top">%s</td><td %s width="10" valign="top">%s&nbsp;</td><td %s colspan="2">%s&nbsp;</td></tr>';
+		$tableline_title3 = '<tr BGCOLOR="%s"><td %s width="10" align="center" valign="top">&nbsp;</td><td %s align="center" valign="top" colspan="3">%s</td></tr>';
+		$tableline_download1 = '<tr><td %srowspan="%s" align="right">%s&nbsp;</td><td %s BGCOLOR="%s">%s&nbsp;</td><td %s colspan="2" BGCOLOR="%s">%s&nbsp;</td></tr>';
+		$tableline_download2 = '<tr BGCOLOR="%s"><td %s>%s&nbsp;</td><td %s colspan="2">%s&nbsp;</td></tr>';
+		$tableline_download3 = '<tr><td %s align="right">%s&nbsp;</td><td %s colspan="3" BGCOLOR="%s">%s&nbsp;</td></tr>';
 
 		$query_pagelist = ' AND pid IN ('.$this->pagelist.')';
 		$query_pagelist = '';
@@ -238,11 +240,10 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 		switch((string)$this->MOD_SETTINGS['function'])	{
 			case 1:
 				// override table structure only for this case
-				$tableline_title1 = '<tr BGCOLOR="%s"><td width="10" valign="top">%s&nbsp;</td><td>%s&nbsp;</td></tr>';
-				$tableline_title2 = '<tr BGCOLOR="%s"><td align="center" colspan="2">%s</td></tr>';
-				$tableline_download1 = '<tr BGCOLOR="%s"><td>%s</td><td>%s</td></tr>';
-				$tableline_download3 = '<tr BGCOLOR="%s"><td align="center" colspan="10"><b>%s</b></td></tr>';
-				$tableline_inline = '<tr onmouseover="this.style.backgroundColor=\'#AAAAAA\'" onmouseout="this.style.backgroundColor=\'\'"><td>%s</td><td width="50" align="right">%s</td><td width="50">%s</td><td width="50" align="center">%s</td><td width="50" align="center">%s</td><td width="50" align="center">%s</td></tr>';
+				$tableline_title1 = '<tr BGCOLOR="%s"><td %s width="10" valign="top">%s&nbsp;</td><td %s>%s&nbsp;</td></tr>';
+				$tableline_title2 = '<tr BGCOLOR="%s"><td %s width="10" valign="top">&nbsp;</td><td %s>%s&nbsp;</td></tr>';
+				$tableline_download1 = '<tr BGCOLOR="%s"><td %s>%s</td><td %s>%s</td></tr>';
+				$tableline_inline = '<tr onmouseover="this.style.backgroundColor=\'#AAAAAA\'" onmouseout="this.style.backgroundColor=\'\'"><td style="vertical-align:middle">%s</td><td style="vertical-align:middle" width="50" align="right">%s</td><td style="vertical-align:middle" width="50">%s</td><td style="vertical-align:middle" width="50" align="center">%s</td><td style="vertical-align:middle" width="50" align="center">%s</td><td style="vertical-align:middle" width="50" align="center">%s</td></tr>';
 
 //				$codes_query = $db->exec_SELECTquery('*', 'tx_rssecuredownload_codes','pid IN ('.$this->pagelist.')');
 				$codes_query = $db->exec_SELECTquery('*', 'tx_rssecuredownload_codes','');
@@ -251,7 +252,7 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 				if ($count_codes > 0) {
 
 					$color = $color1;
-					$content = '<table border="0" cellpadding="2" width="100%">';
+					$content = '<table style="width:100%; border:1px solid black; border-collapse:collapse;">';
 					for ($i_codes = 1; $i_codes <= $count_codes; $i_codes++) {
 						if ($color == $color1) {
 							$color = $color2;
@@ -260,15 +261,15 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 						}
 						$codes_result = $db->sql_fetch_assoc($codes_query);
 
-						$logs_query = $db->exec_SELECTquery('error', 'tx_rssecuredownload_logs','docid='.$codes_result['uid'].' AND deleted='.'0'.$query_pagelist);
-						$count_logs = $db->sql_num_rows($logs_query);
-
-						$content .= sprintf($tableline_title1,$color,$LANG->getLL('table_title'),$codes_result['title']);
-						$content .= sprintf($tableline_title1,$color,$LANG->getLL('table_description'),$codes_result['description']);
+						$content .= sprintf($tableline_title1,$color,$brd_dot,$LANG->getLL('table_title'),$brd_dot,$codes_result['title']);
+						$content .= sprintf($tableline_title1,$color,$brd_dot,$LANG->getLL('table_description'),$brd_dot,$codes_result['description']);
 
 						if ($codes_result['deleted'] == 1) {
-							$content .= sprintf($tableline_title2,$color,'!! <span style="color: red;">'.$LANG->getLL('table_deleted').'</span> !!');
+							$content .= sprintf($tableline_title2,$color,$brd_dot,$brd_dot,'<span style="color: red;">'.$LANG->getLL('table_deleted').'!!</span>');
 						}
+
+						$logs_query = $db->exec_SELECTquery('error', 'tx_rssecuredownload_logs','docid='.$codes_result['uid'].' AND deleted='.'0'.$query_pagelist);
+						$count_logs = $db->sql_num_rows($logs_query);
 
 						if ($count_logs > 0) {
 							$logs_query = $db->exec_SELECTquery('error', 'tx_rssecuredownload_logs','docid='.$codes_result['uid'].' AND NOT error='.'0'.' AND deleted='.'0'.$query_pagelist);
@@ -298,10 +299,11 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 							$content_inline = '<table border="0" cellpadding="1" cellspacing="0" width="100%">';
 							$content_inline .= sprintf($tableline_inline,$LANG->getLL('table_access_success'),$count_logs_correct,$count_logs_correct_text,$detail_link_correct,$export_link_correct,$delete_link_correct);
 							$content_inline .= sprintf($tableline_inline,$LANG->getLL('table_access_failure'),$count_logs_failure,$count_logs_failure_text,$detail_link_failure,$export_link_failure,$delete_link_failure);
-							$content_inline .= sprintf($tableline_inline,$LANG->getLL('table_access_all'),$count_logs_all,$count_logs_all_text,'&nbsp;',$export_link_all,$delete_link_all);							$content_inline .= '</table>';
-							$content .= sprintf($tableline_download1,$color,$LANG->getLL('table_access'),$content_inline);
+							$content_inline .= sprintf($tableline_inline,$LANG->getLL('table_access_all'),$count_logs_all,$count_logs_all_text,'&nbsp;',$export_link_all,$delete_link_all);
+							$content_inline .= '</table>';
+							$content .= sprintf($tableline_download1,$color,$brd_full,$LANG->getLL('table_access'),$brd_full,$content_inline);
 						} else {
-							$content .= sprintf($tableline_download3,$color,$LANG->getLL('no-download-yet'));
+							$content .= sprintf($tableline_download1,$color,$brd_full,$LANG->getLL('table_access'),$brd_full,'<span style="font-weight:bold;">'.$LANG->getLL('no-download-yet').'</span>');
 						}
 					}
 					$content .= '</table>';
@@ -322,7 +324,7 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 				if ($count_codes > 0) {
 
 					$color = $color1;
-					$content = '<table border="0" cellpadding="2" width="100%">';
+					$content = '<table style="width:100%; border:1px solid black; border-collapse:collapse;">';
 					for ($i_codes = 1; $i_codes <= $count_codes; $i_codes++) {
 						if ($color == $color1) {
 							$color = $color2;
@@ -342,43 +344,51 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 							$count_text = '<acronym title="'.$count_logs.' '.$LANG->getLL('table_entries').'">';
 						}
 
-						if (t3lib_div::_GET('expand') == $codes_result['uid']) {
+						if ($count_logs < 1) {
+							$link_image = $anchor.$count_text.'&nbsp;</acronym>';
+						} elseif (t3lib_div::_GET('expand') == $codes_result['uid']) {
 							$link_image = $anchor.'<a href="?id='.$this->id.'&expand=">'.$count_text.$image_minus.'</acronym>'.'</a>';
-							$link_entry = '<a href="?id='.$this->id.'&expand=">'.$count_text.$count_logs.'</acronym>'.'</a>';
 						} else {
 							$link_image = $anchor.'<a href="?id='.$this->id.'&expand='.$codes_result['uid'].'">'.$count_text.$image_plus.'</acronym>'.'</a>';
-							$link_entry = '<a href="?id='.$this->id.'&expand='.$codes_result['uid'].'">'.$count_text.$count_logs.'</acronym>'.'</a>';
 						}
-
-						$content .= sprintf($tableline_title1,$color,$link_image,$LANG->getLL('table_title'),$codes_result['title']);
-						$content .= sprintf($tableline_title2,$color,$link_entry,$LANG->getLL('table_description'),$codes_result['description']);
-
+						
+						$content .= sprintf($tableline_title1,$color,$brd_dot,$link_image,$brd_dot,$LANG->getLL('table_title'),$brd_dot,$codes_result['title']);
+						$content .= sprintf($tableline_title2,$color,$brd_dot,'&nbsp;',$brd_dot,$LANG->getLL('table_description'),$brd_dot,$codes_result['description']);
 						if ($codes_result['deleted'] == 1) {
-							$content .= sprintf($tableline_title3,$color,'!! <span style="color: red;">'.$LANG->getLL('table_deleted').'</span> !!');
+							$content .= sprintf($tableline_title2,$color,$brd_dot,'&nbsp;',$brd_dot,'&nbsp;',$brd_dot,'<span style="color: red;">'.$LANG->getLL('table_deleted').'!!</span>');
 						}
 
-						if (t3lib_div::_GET('expand') == $codes_result['uid']) {
+						if ((t3lib_div::_GET('expand') == $codes_result['uid'])) {
 							if ($count_logs > 0) {
 								for ($i_logs = 1; $i_logs <= $count_logs; $i_logs++) {
 									$logs_result = $db->sql_fetch_assoc($logs_query);
-									$content .= sprintf($tableline_download1,5,$color,$LANG->getLL('table_datetime'),$color,date($LANG->getLL('table_datetime_format'),$logs_result['accesstime']));
-									$content .= sprintf($tableline_download2,$color,$LANG->getLL('table_r_browser'),$logs_result['rbrowser']);
-									if ($logs_result['ripadress'] <> "") {
-										$content .= sprintf($tableline_download2,$color,$LANG->getLL('table_r_ipadress'),$logs_result['ripadress']);
+									if ($i_logs < $count_logs) {
+										$content .= sprintf($tableline_download1,$brd_dot,5,$i_logs,$brd_dot,$color,$LANG->getLL('table_datetime'),$brd_dot,$color,date($LANG->getLL('table_datetime_format'),$logs_result['accesstime']));
 									} else {
-										$content .= sprintf($tableline_download2,$color,$LANG->getLL('table_r_ipadress'),'!! <span style="font-style:italic;">'.$LANG->getLL('no-ip-logging').'</span> !!');
+										$content .= sprintf($tableline_download1,$brd_full,5,$i_logs,$brd_dot,$color,$LANG->getLL('table_datetime'),$brd_dot,$color,date($LANG->getLL('table_datetime_format'),$logs_result['accesstime']));
+									};
+									$content .= sprintf($tableline_download2,$color,$brd_dot,$LANG->getLL('table_r_browser'),$brd_dot,$logs_result['rbrowser']);
+									if ($logs_result['ripadress'] <> "") {
+										$content .= sprintf($tableline_download2,$color,$brd_dot,$LANG->getLL('table_r_ipadress'),$brd_dot,$logs_result['ripadress']);
+									} else {
+										$content .= sprintf($tableline_download2,$color,$brd_dot,$LANG->getLL('table_r_ipadress'),$brd_dot,'!! <span style="font-style:italic;">'.$LANG->getLL('no-ip-logging').'</span> !!');
 									}
 									if ($logs_result['rname'] <> "") {
-										$content .= sprintf($tableline_download2,$color,$LANG->getLL('table_r_name'),$logs_result['rname']);
+										$content .= sprintf($tableline_download2,$color,$brd_dot,$LANG->getLL('table_r_name'),$brd_dot,$logs_result['rname']);
 									} else {
-										$content .= sprintf($tableline_download2,$color,$LANG->getLL('table_r_name'),'!! <span style="font-style:italic;">'.$LANG->getLL('no-ip-logging').'</span> !!');
+										$content .= sprintf($tableline_download2,$color,$brd_dot,$LANG->getLL('table_r_name'),$brd_dot,'!! <span style="font-style:italic;">'.$LANG->getLL('no-ip-logging').'</span> !!');
 									}
-									$content .= sprintf($tableline_download2,$color,$LANG->getLL('table_errortext'),sprintf($LANG->getLL('error'.$logs_result['error']),$logs_result['errortext']));
-									if ($i_logs < $count_logs) {$content .= sprintf($tableline_spacer,$color); };
+									if ($i_logs < $count_logs) {
+										$content .= sprintf($tableline_download2,$color,$brd_dot,$LANG->getLL('table_errortext'),$brd_dot,sprintf($LANG->getLL('error'.$logs_result['error']),$logs_result['errortext']));
+									} else {
+										$content .= sprintf($tableline_download2,$color,$brd_full,$LANG->getLL('table_errortext'),$brd_full,sprintf($LANG->getLL('error'.$logs_result['error']),$logs_result['errortext']));
+									};
 								}
 							} else {
-								$content .= sprintf($tableline_download3,$color,$LANG->getLL('no-download-yet'));
+								$content .= sprintf($tableline_download3,$brd_full,$count_logs,$brd_full,$color,$LANG->getLL('download-yet-wrong'));
 							}
+						} else {
+							$content .= sprintf($tableline_download3,$brd_full,$count_logs,$brd_full,$color,$LANG->getLL('download-yet-wrong'));
 						}
 					}
 					$content .= '</table>';
@@ -398,7 +408,7 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 				if ($count_codes > 0) {
 
 					$color = $color1;
-					$content = '<table border="0" cellpadding="2" width="100%">';
+					$content = '<table style="width:100%; border:1px solid black; border-collapse:collapse;">';
 					for ($i_codes = 1; $i_codes <= $count_codes; $i_codes++) {
 						if ($color == $color1) {
 							$color = $color2;
@@ -418,42 +428,51 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 							$count_text = '<acronym title="'.$count_logs.' '.$LANG->getLL('table_entries').'">';
 						}
 
-						if (t3lib_div::_GET('expand') == $codes_result['uid']) {
+						if ($count_logs < 1) {
+							$link_image = $anchor.$count_text.'&nbsp;</acronym>';
+						} elseif (t3lib_div::_GET('expand') == $codes_result['uid']) {
 							$link_image = $anchor.'<a href="?id='.$this->id.'&expand=">'.$count_text.$image_minus.'</acronym>'.'</a>';
-							$link_entry = '<a href="?id='.$this->id.'&expand=">'.$count_text.$count_logs.'</acronym>'.'</a>';
 						} else {
 							$link_image = $anchor.'<a href="?id='.$this->id.'&expand='.$codes_result['uid'].'">'.$count_text.$image_plus.'</acronym>'.'</a>';
-							$link_entry = '<a href="?id='.$this->id.'&expand='.$codes_result['uid'].'">'.$count_text.$count_logs.'</acronym>'.'</a>';
 						}
-
-						$content .= sprintf($tableline_title1,$color,$link_image,$LANG->getLL('table_title'),$codes_result['title']);
-						$content .= sprintf($tableline_title2,$color,$link_entry,$LANG->getLL('table_description'),$codes_result['description']);
-
+						
+						$content .= sprintf($tableline_title1,$color,$brd_dot,$link_image,$brd_dot,$LANG->getLL('table_title'),$brd_dot,$codes_result['title']);
+						$content .= sprintf($tableline_title2,$color,$brd_dot,'&nbsp;',$brd_dot,$LANG->getLL('table_description'),$brd_dot,$codes_result['description']);
 						if ($codes_result['deleted'] == 1) {
-							$content .= sprintf($tableline_title3,$color,'!! <span style="color: red;">'.$LANG->getLL('table_deleted').'</span> !!');
+							$content .= sprintf($tableline_title2,$color,$brd_dot,'&nbsp;',$brd_dot,'&nbsp;',$brd_dot,'<span style="color: red;">'.$LANG->getLL('table_deleted').'!!</span>');
 						}
 
-						if (t3lib_div::_GET('expand') == $codes_result['uid']) {
+						if ((t3lib_div::_GET('expand') == $codes_result['uid'])) {
 							if ($count_logs > 0) {
 								for ($i_logs = 1; $i_logs <= $count_logs; $i_logs++) {
 									$logs_result = $db->sql_fetch_assoc($logs_query);
-									$content .= sprintf($tableline_download1,4,$color,$LANG->getLL('table_datetime'),$color,date($LANG->getLL('table_datetime_format'),$logs_result['accesstime']));
-									$content .= sprintf($tableline_download2,$color,$LANG->getLL('table_r_browser'),$logs_result['rbrowser']);
-									if ($logs_result['ripadress'] <> "") {
-										$content .= sprintf($tableline_download2,$color,$LANG->getLL('table_r_ipadress'),$logs_result['ripadress']);
+									if ($i_logs < $count_logs) {
+										$content .= sprintf($tableline_download1,$brd_dot,4,$i_logs,$brd_dot,$color,$LANG->getLL('table_datetime'),$brd_dot,$color,date($LANG->getLL('table_datetime_format'),$logs_result['accesstime']));
 									} else {
-										$content .= sprintf($tableline_download2,$color,$LANG->getLL('table_r_ipadress'),'!! <span style="font-style:italic;">'.$LANG->getLL('no-ip-logging').'</span> !!');
+										$content .= sprintf($tableline_download1,$brd_full,4,$i_logs,$brd_dot,$color,$LANG->getLL('table_datetime'),$brd_dot,$color,date($LANG->getLL('table_datetime_format'),$logs_result['accesstime']));
+									};
+									$content .= sprintf($tableline_download2,$color,$brd_dot,$LANG->getLL('table_r_browser'),$brd_dot,$logs_result['rbrowser']);
+									if ($logs_result['ripadress'] <> "") {
+										$content .= sprintf($tableline_download2,$color,$brd_dot,$LANG->getLL('table_r_ipadress'),$brd_dot,$logs_result['ripadress']);
+									} else {
+										$content .= sprintf($tableline_download2,$color,$brd_dot,$LANG->getLL('table_r_ipadress'),$brd_dot,'!! <span style="font-style:italic;">'.$LANG->getLL('no-ip-logging').'</span> !!');
 									}
 									if ($logs_result['rname'] <> "") {
-										$content .= sprintf($tableline_download2,$color,$LANG->getLL('table_r_name'),$logs_result['rname']);
+										$rname = $logs_result['rname'];
 									} else {
-										$content .= sprintf($tableline_download2,$color,$LANG->getLL('table_r_name'),'!! <span style="font-style:italic;">'.$LANG->getLL('no-ip-logging').'</span> !!');
+										$rname = '!! <span style="font-style:italic;">'.$LANG->getLL('no-ip-logging').'</span> !!';
 									}
-									if ($i_logs < $count_logs) {$content .= sprintf($tableline_spacer,$color); };
+									if ($i_logs < $count_logs) {
+										$content .= sprintf($tableline_download2,$color,$brd_dot,$LANG->getLL('table_r_name'),$brd_dot,$rname);
+									} else {
+										$content .= sprintf($tableline_download2,$color,$brd_full,$LANG->getLL('table_r_name'),$brd_full,$rname);
+									};
 								}
 							} else {
-								$content .= sprintf($tableline_download3,$color,$LANG->getLL('no-download-yet'));
+								$content .= sprintf($tableline_download3,$brd_full,$count_logs,$brd_full,$color,$LANG->getLL('download-yet-wrong'));
 							}
+						} else {
+							$content .= sprintf($tableline_download3,$brd_full,$count_logs,$brd_full,$color,$LANG->getLL('download-yet-wrong'));
 						}
 					}
 					$content .= '</table>';

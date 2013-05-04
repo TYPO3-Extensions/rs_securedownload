@@ -14,14 +14,16 @@
 			<label index="function2-description">Codes wrong</label>
 			<label index="function3-description">Codes correct</label>
 			<label index="no-download-defined">No secure download has been defined</label>
-			<label index="no-download-yet">Currently no download trys</label>
+			<label index="no-download-yet">No download attempts found</label>
+			<label index="download-yet-wrong">download attempts with wrong password</label>
+			<label index="download-yet-correct">download attempts with correct password</label>
 			<label index="no-ip-logging">IP logging was disabled at access time</label>
 <!-- don't change those lines - BEGIN -->
 			<label index="error1">This code doesn't exist: &quot;%s&quot;</label>
 			<label index="error2">This code is expired or not valid yet</label>
 			<label index="error3">This code is deactivated</label>
 <!-- don't change those lines - END -->
-			<label index="please_select_page">Please select a page in the pagetree.</label>
+			<label index="please_select_page">Please select a page with Secure Downloads in the pagetree.</label>
 			<label index="table_title">Title</label>
 			<label index="table_entry">entry</label>
 			<label index="table_entries">entries</label>
@@ -51,14 +53,16 @@
 			<label index="function2-description">Kennw&#246;rter FALSCH</label>
 			<label index="function3-description">Kennw&#246;rter RICHTIG</label>
 			<label index="no-download-defined">Es wurde kein sicherer Download angelegt</label>
-			<label index="no-download-yet">Derzeit keine Download Versuche</label>
+			<label index="no-download-yet">Keine Download Versuche gefunden</label>
+			<label index="download-yet-wrong">Download Versuche mit falschem Kennwort</label>
+			<label index="download-yet-correct">Download Versuche mit richtigem Kennwort</label>
 			<label index="no-ip-logging">IP Speicherung war bei Zugriff deaktiviert</label>
 <!-- Aendern Sie nicht diese Zeilen - ANFANG -->
 			<label index="error1">Dieser Code existiert nicht: &quot;%s&quot;</label>
 			<label index="error2">Dieser Code ist abgelaufen oder noch nicht g&#252;ltig!</label>
 			<label index="error3">Dieser Code wurde deaktiviert!</label>
 <!-- Aendern Sie nicht diese Zeilen - ENDE -->
-			<label index="please_select_page">Bitte wählen Sie im Seitenbaum eine Seite aus.</label>
+			<label index="please_select_page">Bitte wählen Sie im Seitenbaum eine Seite mit Sicheren Downloads aus.</label>
 			<label index="table_title">Titel</label>
 			<label index="table_entry">Eintrag</label>
 			<label index="table_entries">Eintr&#228;ge</label>
