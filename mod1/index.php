@@ -68,7 +68,7 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 		}
 
 		// init the first csv-content row
-		$this->csvContent[0] = array();
+		$this->csvContent = array();
 
 		// check, if we should render a csv-table
 		$this->csvOutput = (t3lib_div::_GET('format') == 'csv') ? true : false;
@@ -283,13 +283,13 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 							$detail_link_correct = '<a href="?id='.$this->id.'&SET[function]=3&expand='.$codes_result['uid'].'">'.'<acronym style="border: none" title="'.$LANG->getLL('table_detail').'">'.$image_plus.'</acronym>'.'</a>';
 							$detail_link_failure = '<a href="?id='.$this->id.'&SET[function]=2&expand='.$codes_result['uid'].'">'.'<acronym style="border: none" title="'.$LANG->getLL('table_detail').'">'.$image_plus.'</acronym>'.'</a>';
 
-							$export_link_correct = '<a href="?format=csv&code='.$codes_result['uid'].'&type=2">'.'<acronym style="border: none" title="'.$LANG->getLL('table_export').'">'.$image_export.'</acronym>'.'</a>';
-							$export_link_failure = '<a href="?format=csv&code='.$codes_result['uid'].'&type=1">'.'<acronym style="border: none" title="'.$LANG->getLL('table_export').'">'.$image_export.'</acronym>'.'</a>';
-							$export_link_all     = '<a href="?format=csv&code='.$codes_result['uid'].'&type=0">'.'<acronym style="border: none" title="'.$LANG->getLL('table_export').'">'.$image_export.'</acronym>'.'</a>';
+							$export_link_correct = '<a href="?id='.$this->id.'&format=csv&code='.$codes_result['uid'].'&type=2">'.'<acronym style="border: none" title="'.$LANG->getLL('table_export').'">'.$image_export.'</acronym>'.'</a>';
+							$export_link_failure = '<a href="?id='.$this->id.'&format=csv&code='.$codes_result['uid'].'&type=1">'.'<acronym style="border: none" title="'.$LANG->getLL('table_export').'">'.$image_export.'</acronym>'.'</a>';
+							$export_link_all     = '<a href="?id='.$this->id.'&format=csv&code='.$codes_result['uid'].'&type=0">'.'<acronym style="border: none" title="'.$LANG->getLL('table_export').'">'.$image_export.'</acronym>'.'</a>';
 //Overwrite for temporary disabled
-							$export_link_correct = '<acronym style="border: none" title="'.$LANG->getLL('table_export').' '.$LANG->getLL('coming_soon').'">'.$image_export.'</acronym>';
-							$export_link_failure = '<acronym style="border: none" title="'.$LANG->getLL('table_export').' '.$LANG->getLL('coming_soon').'">'.$image_export.'</acronym>';
-							$export_link_all     = '<acronym style="border: none" title="'.$LANG->getLL('table_export').' '.$LANG->getLL('coming_soon').'">'.$image_export.'</acronym>';
+//							$export_link_correct = '<acronym style="border: none" title="'.$LANG->getLL('table_export').' '.$LANG->getLL('coming_soon').'">'.$image_export.'</acronym>';
+//							$export_link_failure = '<acronym style="border: none" title="'.$LANG->getLL('table_export').' '.$LANG->getLL('coming_soon').'">'.$image_export.'</acronym>';
+//							$export_link_all     = '<acronym style="border: none" title="'.$LANG->getLL('table_export').' '.$LANG->getLL('coming_soon').'">'.$image_export.'</acronym>';
 
 							$delete_link_correct = '<a href="?id='.$this->id.'&delete=1&code='.$codes_result['uid'].'&type=2" onclick="return confirm(\''.$LANG->getLL('table_delete').' '.$count_logs_correct.' '.$count_logs_correct_text.'?\')">'.'<acronym style="border: none" title="'.$LANG->getLL('table_delete').' '.$count_logs_correct.' '.$count_logs_correct_text.'">'.$image_delete.'</acronym>'.'</a>';
 							$delete_link_failure = '<a href="?id='.$this->id.'&delete=1&code='.$codes_result['uid'].'&type=1" onclick="return confirm(\''.$LANG->getLL('table_delete').' '.$count_logs_failure.' '.$count_logs_failure_text.'?\')">'.'<acronym style="border: none" title="'.$LANG->getLL('table_delete').' '.$count_logs_failure.' '.$count_logs_failure_text.'">'.$image_delete.'</acronym>'.'</a>';
@@ -516,30 +516,6 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 	}
 
 	/**
-	 * addCsvCol
-	 *
-	 * @param	string		$content
-	 * @return	void
-	 * @access public
-	 */
-	function addCsvCol($content='') {
-		$this->csvContent[$this->currentRowNumber][$this->currentColNumber] = $content;
-		$this->currentColNumber++;
-	}
-
-	/**
-	 * addCsvRow
-	 *
-	 * @return	void
-	 * @access public
-	 */
-	function addCsvRow() {
-		$this->currentRowNumber++;
-		$this->currentColNumber = 0;
-		$this->csvContent[$this->currentRowNumber] = array();
-	}
-
-	/**
 	 * createCSV
 	 *
 	 * @return	void
@@ -548,22 +524,40 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 	function createCSV() {
 		global $LANG;
 		$db =& $GLOBALS['TYPO3_DB'];
-$db->debugOutput = true;
+
+		$fields = 'accesstime,rbrowser,ripadress,rname,error,errortext';
+		$this->csvContent[] = explode(',', $fields);;
 
 		switch($this->csvOutputType)	{
 			case 2:
-				$logs_result = $db->exec_SELECTquery('*', 'tx_rssecuredownload_logs','docid='.$this->deleteCode.' AND error='.'0'.' AND deleted='.'0');
+				$logs_query = $db->exec_SELECTquery($fields, 'tx_rssecuredownload_logs','docid='.$this->deleteCode.' AND error='.'0'.' AND deleted='.'0');
 			break;
 			case 1:
-				$logs_result = $db->exec_SELECTquery('*', 'tx_rssecuredownload_logs','docid='.$this->deleteCode.' AND NOT error='.'0'.' AND deleted='.'0');
+				$logs_query = $db->exec_SELECTquery($fields, 'tx_rssecuredownload_logs','docid='.$this->deleteCode.' AND NOT error='.'0'.' AND deleted='.'0');
 			break;
 			case 0:
-				$logs_result = $db->exec_SELECTquery('*', 'tx_rssecuredownload_logs','docid='.$this->deleteCode.' AND deleted='.'0');
+				$logs_query = $db->exec_SELECTquery($fields, 'tx_rssecuredownload_logs','docid='.$this->deleteCode.' AND deleted='.'0');
 			break;
 		}
 
-
-$db->debugOutput = false;
+		while ($row = $db->sql_fetch_assoc($logs_query)) {
+			$row['accesstime'] = date($LANG->getLL('table_datetime_format'),$row['accesstime']);
+			$row['rbrowser'] = $row['rbrowser'];
+			if ($row['ripadress'] <> "") {
+				$row['ripadress'] = $row['ripadress'];
+			} else {
+				$row['ripadress'] = $LANG->getLL('no-ip-logging');
+			}
+			if ($row['rname'] <> "") {
+				$row['rname'] = $row['rname'];
+			} else {
+				$row['rname'] = $LANG->getLL('no-ip-logging');
+			}
+			if ($row['error'] <> 0) {
+				$row['errortext'] = sprintf($LANG->getLL('error'.$row['error']),$row['errortext']);
+			}
+			$this->csvContent[] = $row;
+		}
 	}
 
 	/**
@@ -576,16 +570,15 @@ $db->debugOutput = false;
 		// Set Excel as default application
 		header('Pragma: private');
 		header('Cache-control: private, must-revalidate');
-		header("Content-Type: application/vnd.ms-excel");
+		header("Content-Type: application/csv");
 
 		// Set file name
-//		header('Content-Disposition: attachment; filename="' . str_replace('###DATE###', date('Y-m-d-H-i'), $GLOBALS['LANG']->getLL('csvdownload_filename') . '"'));
-		header('Content-Disposition: attachment; filename="text.csv"');
+		$filename = str_replace('###DATE###', date($GLOBALS['LANG']->getLL('csv-download_datetime')), $GLOBALS['LANG']->getLL('csv-download_filename'));
+		header('Content-Disposition: attachment; filename="' . $filename . '"');
 
-		$content = '';
 		foreach ($this->csvContent as $row) {
 			//function csvValues($row,$delim=',',$quote='"')
-			$content .= t3lib_div::csvValues($row) . "\n";
+			$content .= t3lib_div::csvValues($row,';','"') . "\n";
 		}
 
 		// I'm not sure if this is necessary for all programs you are importing to, tested with OpenOffice.org

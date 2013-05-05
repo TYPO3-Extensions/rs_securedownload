@@ -44,6 +44,8 @@
 			<label index="table_delete">Delete</label>
 			<label index="table_delete_this">Delete these entry</label>
 			<label index="coming_soon"> (coming soon)</label>
+			<label index="csv-download_filename">securedownload_###DATE###.csv</label>
+			<label index="csv-download_datetime">Y-m-d_H-i</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="title">Sicherer Download</label>
@@ -84,6 +86,8 @@
 			<label index="table_delete">L&#246;sche</label>
 			<label index="table_delete_this">L&#246;sche diesen Eintrag</label>
 			<label index="coming_soon"> (kommt demn&#228;chst)</label>
+			<label index="csv-download_filename">securedownload_###DATE###.csv</label>
+			<label index="csv-download_datetime">Y-m-d_H-i</label>
 		</languageKey>
 	</data>
 </T3locallang>
