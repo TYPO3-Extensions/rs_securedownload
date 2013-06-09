@@ -6,6 +6,7 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
+			<label index="titleall">All downloads</label>
 <!-- don't change those lines - BEGIN -->
 			<label index="error1">(This code doesn't exist: &quot;%s&quot;)</label>
 			<label index="error2">(This code is expired or not valid yet)</label>
@@ -15,6 +16,7 @@
 			<label index="start_download">click here to start the download</label>
 		</languageKey>
 		<languageKey index="de" type="array">
+			<label index="titleall">Alle Downloads</label>
 <!-- Aendern Sie nicht diese Zeilen - ANFANG -->
 			<label index="error1">(Dieser Code existiert nicht: &quot;%s&quot;)</label>
 			<label index="error2">(Dieser Code ist abgelaufen oder noch nicht g&#252;ltig!)</label>
