@@ -526,7 +526,7 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 		$db =& $GLOBALS['TYPO3_DB'];
 
 		$fields = 'accesstime,rbrowser,ripadress,rname,error,errortext';
-		$this->csvContent[] = explode(',', $fields);;
+		$this->csvContent[] = explode(',', $fields);
 
 		switch($this->csvOutputType)	{
 			case 2:
