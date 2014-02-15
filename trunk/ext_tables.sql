@@ -21,8 +21,6 @@ CREATE TABLE tx_rssecuredownload_codes (
 	KEY parent (pid)
 );
 
-
-
 #
 # Table structure for table 'tx_rssecuredownload_logs'
 #
