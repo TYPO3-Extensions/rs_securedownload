@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2008-2013 Rene <typo3@rs-softweb.de>
+*  (c) 2008-2014 Rene <typo3@rs-softweb.de>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -45,7 +45,7 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 	 * @param	array		$conf: The PlugIn Configuration
 	 * @return	string		The content that should be displayed on the website
 	 */
-	function main($content,$conf)	{
+	function main($content, $conf) {
 		global $LANG;
 
 		//initiate
@@ -73,8 +73,8 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 		$pluginPath = t3lib_extMgm::siteRelPath($this->extKey);
 
 		//get data from flexform
-		$tryall = $this->FF('tryall','general');
-		$downloadid = $this->FF('downloadselect','general');
+		$tryall = $this->FF('tryall', 'general');
+		$downloadid = $this->FF('downloadselect', 'general');
 
 		//get the HTML template:
 		$this->templateCode = $this->cObj->fileResource($this->extConf['templateFile']);
@@ -98,22 +98,22 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 			'###SUB_FORM###' => '',
 		);
 
-		if ($this->piVars['action'] != "") {
+		if ($this->piVars['action'] != '') {
 			$action = $this->piVars['action'];
 			$givenCode = $this->piVars['code'];
 		} else {
-			$action = "getCode";
+			$action = 'getCode';
 		}
 
 		switch ($action) {
-			case "checkCode":
+			case 'checkCode':
 				if ( ($tryall == 1) && ($this->piVars['download'] == 0) ) {
 					$code_query = $db->exec_SELECTquery('*', 'tx_rssecuredownload_codes', 'code="' . addslashes($givenCode) . '"' );
 				} else {
 					$code_query = $db->exec_SELECTquery('*', 'tx_rssecuredownload_codes', 'uid="' . addslashes($downloadid) . '" AND code="' . addslashes($givenCode) . '"' );
 				}
 
-				if ( ($tryall == 0) && ($this->piVars['download'] != $downloadid) ) {break;}
+				if (($tryall == 0) && ($this->piVars['download'] != $downloadid)) {break;}
 
 				$markerArray['###TITLE###'] = $this->pi_getLL('titleall');
 
@@ -126,13 +126,13 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 					$markerArray['###TITLE###'] = $code['title'];
 
 					if ( ($code['starttime'] == 0 && $code['endtime'] == 0 ) ||
-							 ($code['starttime'] == 0 && date('Y-m-d',$code['endtime']) >= date('Y-m-d',strtotime(date("Y-m-d"))) ) ||
-							 (date('Y-m-d',$code['starttime']) <= date('Y-m-d',strtotime(date("Y-m-d"))) && $code['endtime'] == 0 ) ||
-							 (date('Y-m-d',$code['starttime']) <= date('Y-m-d',strtotime(date("Y-m-d"))) && date('Y-m-d',$code['endtime']) >= date('Y-m-d',strtotime(date("Y-m-d"))) ) )
+							 ($code['starttime'] == 0 && date('Y-m-d', $code['endtime']) >= date('Y-m-d', strtotime(date('Y-m-d'))) ) ||
+							 (date('Y-m-d', $code['starttime']) <= date('Y-m-d', strtotime(date('Y-m-d'))) && $code['endtime'] == 0 ) ||
+							 (date('Y-m-d', $code['starttime']) <= date('Y-m-d', strtotime(date('Y-m-d'))) && date('Y-m-d', $code['endtime']) >= date('Y-m-d', strtotime(date('Y-m-d'))) ) )
 					{
 						if ($code['hidden'] == 0) {
 							$markerArray['###TITLE###'] = $code['title'];
-							if ($code['description'] != "") {
+							if ($code['description'] != '') {
 								$subpartArray['###SUB_DESCRIPTION###'] = $this->cObj->substituteMarker($t['description'], '###DESCRIPTION###', $code['description']);
 							}
 
@@ -176,7 +176,7 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 					$row = $db->sql_fetch_assoc($query_local);
 
 					$markerArray['###TITLE###'] = $row['title'];
-					if ($row['description'] != "") {
+					if ($row['description'] != '') {
 						$subpartArray['###SUB_DESCRIPTION###'] = $this->cObj->substituteMarker($t['description'], '###DESCRIPTION###', $row['description']);
 					}
 					if ($tryall == 1) {
@@ -192,13 +192,13 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 					}
 				}
 				break;
-			case "getCode":
+			case 'getCode':
 				$query_local = $db->exec_SELECTquery('*', 'tx_rssecuredownload_codes', 'uid="'.addslashes($downloadid).'"');
 				if ($db->sql_num_rows($query_local) == 1) {
 					$row = $db->sql_fetch_assoc($query_local);
 
 					$markerArray['###TITLE###'] = $row['title'];
-					if ($row['description'] != "") {
+					if ($row['description'] != '') {
 						$subpartArray['###SUB_DESCRIPTION###'] = $this->cObj->substituteMarker($t['description'], '###DESCRIPTION###', $row['description']);
 					}
 					if ($tryall == 1) {
@@ -230,7 +230,7 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 	 * @return	string		The value of selected FlexForm field
 	 */
 	function FF($field, $sheet='') {
-		$result = "";
+		$result = '';
 		if (empty($sheet)) {
 			$result = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], $field);
 		} else {
@@ -246,8 +246,7 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 	 */
 	function UserDataArray() {
 		$result = array();
-
-		$result['accesstime'] = date("U");
+		$result['accesstime'] = date('U');
 		$result['rbrowser']   = $_SERVER['HTTP_USER_AGENT'];
 		if ($this->extConf['enableIpLogging'] == 1) {
 			$result['ripadress'] = $_SERVER['REMOTE_ADDR'];
@@ -263,8 +262,7 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 	}
 }
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/rs_securedownload/pi1/class.tx_rssecuredownload_pi1.php'])	{
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/rs_securedownload/pi1/class.tx_rssecuredownload_pi1.php']) {
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/rs_securedownload/pi1/class.tx_rssecuredownload_pi1.php']);
 }
-
 ?>

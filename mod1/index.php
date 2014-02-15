@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2008-2013 Rene <typo3@rs-softweb.de>
+*  (c) 2008-2014 Rene <typo3@rs-softweb.de>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -368,12 +368,12 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 										$content .= sprintf($tableline_download1,$brd_full,5,$i_logs,$brd_dot,$color,$LANG->getLL('table_datetime'),$brd_dot,$color,date($LANG->getLL('table_datetime_format'),$logs_result['accesstime']),$brd_full,5,$link_delete);
 									};
 									$content .= sprintf($tableline_download2,$color,$brd_dot,$LANG->getLL('table_r_browser'),$brd_dot,$logs_result['rbrowser']);
-									if ($logs_result['ripadress'] <> "") {
+									if ($logs_result['ripadress'] <> '') {
 										$content .= sprintf($tableline_download2,$color,$brd_dot,$LANG->getLL('table_r_ipadress'),$brd_dot,$logs_result['ripadress']);
 									} else {
 										$content .= sprintf($tableline_download2,$color,$brd_dot,$LANG->getLL('table_r_ipadress'),$brd_dot,'!! <span style="font-style:italic;">'.$LANG->getLL('no-ip-logging').'</span> !!');
 									}
-									if ($logs_result['rname'] <> "") {
+									if ($logs_result['rname'] <> '') {
 										$content .= sprintf($tableline_download2,$color,$brd_dot,$LANG->getLL('table_r_name'),$brd_dot,$logs_result['rname']);
 									} else {
 										$content .= sprintf($tableline_download2,$color,$brd_dot,$LANG->getLL('table_r_name'),$brd_dot,'!! <span style="font-style:italic;">'.$LANG->getLL('no-ip-logging').'</span> !!');
@@ -453,12 +453,12 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 										$content .= sprintf($tableline_download1,$brd_full,4,$i_logs,$brd_dot,$color,$LANG->getLL('table_datetime'),$brd_dot,$color,date($LANG->getLL('table_datetime_format'),$logs_result['accesstime']),$brd_full,4,$link_delete);
 									};
 									$content .= sprintf($tableline_download2,$color,$brd_dot,$LANG->getLL('table_r_browser'),$brd_dot,$logs_result['rbrowser']);
-									if ($logs_result['ripadress'] <> "") {
+									if ($logs_result['ripadress'] <> '') {
 										$content .= sprintf($tableline_download2,$color,$brd_dot,$LANG->getLL('table_r_ipadress'),$brd_dot,$logs_result['ripadress']);
 									} else {
 										$content .= sprintf($tableline_download2,$color,$brd_dot,$LANG->getLL('table_r_ipadress'),$brd_dot,'!! <span style="font-style:italic;">'.$LANG->getLL('no-ip-logging').'</span> !!');
 									}
-									if ($logs_result['rname'] <> "") {
+									if ($logs_result['rname'] <> '') {
 										$rname = $logs_result['rname'];
 									} else {
 										$rname = '!! <span style="font-style:italic;">'.$LANG->getLL('no-ip-logging').'</span> !!';
@@ -543,12 +543,12 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 		while ($row = $db->sql_fetch_assoc($logs_query)) {
 			$row['accesstime'] = date($LANG->getLL('table_datetime_format'),$row['accesstime']);
 			$row['rbrowser'] = $row['rbrowser'];
-			if ($row['ripadress'] <> "") {
+			if ($row['ripadress'] <> '') {
 				$row['ripadress'] = $row['ripadress'];
 			} else {
 				$row['ripadress'] = $LANG->getLL('no-ip-logging');
 			}
-			if ($row['rname'] <> "") {
+			if ($row['rname'] <> '') {
 				$row['rname'] = $row['rname'];
 			} else {
 				$row['rname'] = $LANG->getLL('no-ip-logging');
@@ -570,7 +570,7 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 		// Set Excel as default application
 		header('Pragma: private');
 		header('Cache-control: private, must-revalidate');
-		header("Content-Type: application/csv");
+		header('Content-Type: application/csv');
 
 		// Set file name
 		$filename = str_replace('###DATE###', date($GLOBALS['LANG']->getLL('csv-download_datetime')), $GLOBALS['LANG']->getLL('csv-download_filename'));
@@ -601,7 +601,7 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 	 * @access public
 	 * @return void
 	 */
-	function getSubPages($page_uid=0) {/*{{{*/
+	function getSubPages($page_uid=0) {
 		if ($page_uid) {
 			$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid', 'pages', 'pid='.intval($page_uid));
 			while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res))	{
@@ -614,19 +614,12 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 		} else {
 			$this->pagelist = '';
 		}
-	}/*}}}*/
-
-
+	}
 }
 
-
-
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/rs_securedownload/mod1/index.php'])	{
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/rs_securedownload/mod1/index.php']) {
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/rs_securedownload/mod1/index.php']);
 }
-
-
-
 
 // Make instance:
 $SOBE = t3lib_div::makeInstance('tx_rssecuredownload_module1');
