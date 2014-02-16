@@ -1,0 +1,5 @@
+# cat=basic/enable/130; type=boolean; label= IP-Logging: IP-Logging is disabled by default (for legal reasons).
+enableIpLogging = 0
+
+# cat=basic/enable/140; type=boolean; label= Name-Logging: Name-Logging (Computer name resolved from IP) is disabled by default (for legal reasons).
+enableNameLogging = 0
