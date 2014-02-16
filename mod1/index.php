@@ -157,7 +157,8 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 				</script>
 			';
 
-			$headerSection = $this->doc->getHeader('pages', $this->pageinfo, $this->pageinfo['_thePath']).'<br />'.$GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.path').': '.t3lib_div::fixed_lgd_cs($this->pageinfo['_thePath'], -50);
+			$headerSection = $this->doc->getHeader('pages', $this->pageinfo, 
+				$this->pageinfo['_thePath']).'<br />'.$GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.path').': '.t3lib_div::fixed_lgd_cs($this->pageinfo['_thePath'], -50);
 
 			$this->content.=$this->doc->startPage($GLOBALS['LANG']->getLL('title'));
 			$this->content.=$this->doc->header($GLOBALS['LANG']->getLL('title'));
@@ -226,10 +227,13 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 		$color2 = '#DDDDDD';
 		$brd_dot = ' style="border-bottom:1px dotted grey;padding:2px" ';
 		$brd_full= ' style="border-bottom:1px solid black;padding:2px" ';
-		$tableline_title1 = '<tr BGCOLOR="%s"><td %s width="10" align="center" valign="top">%s</td><td %s width="10" valign="top">%s&nbsp;</td><td %s colspan="2">%s&nbsp;</td><td %s width="10" align="center" valign="middle">&nbsp;</td></tr>';
-		$tableline_title2 = '<tr BGCOLOR="%s"><td %s width="10" align="center" valign="top">%s</td><td %s width="10" valign="top">%s&nbsp;</td><td %s colspan="2">%s&nbsp;</td></tr>';
+		$tableline_title1 = '<tr BGCOLOR="%s"><td %s width="10" align="center" valign="top">%s</td><td %s width="10" valign="top">%s&nbsp;</td>'
+			. '<td %s colspan="2">%s&nbsp;</td><td %s width="10" align="center" valign="middle">&nbsp;</td></tr>';
+		$tableline_title2 = '<tr BGCOLOR="%s"><td %s width="10" align="center" valign="top">%s</td><td %s width="10" valign="top">%s&nbsp;</td>'
+			. '<td %s colspan="2">%s&nbsp;</td></tr>';
 		$tableline_title3 = '<tr BGCOLOR="%s"><td %s width="10" align="center" valign="top">&nbsp;</td><td %s align="center" valign="top" colspan="3">%s</td></tr>';
-		$tableline_download1 = '<tr><td %srowspan="%s" align="right">%s&nbsp;</td><td %s BGCOLOR="%s">%s&nbsp;</td><td %s colspan="2" BGCOLOR="%s">%s&nbsp;</td><td %srowspan="%s" align="center">%s</td></tr>';
+		$tableline_download1 = '<tr><td %srowspan="%s" align="right">%s&nbsp;</td><td %s BGCOLOR="%s">%s&nbsp;</td>';
+		$tableline_download1 .= '<td %s colspan="2" BGCOLOR="%s">%s&nbsp;</td><td %srowspan="%s" align="center">%s</td></tr>';
 		$tableline_download2 = '<tr BGCOLOR="%s"><td %s>%s&nbsp;</td><td %s colspan="2">%s&nbsp;</td></tr>';
 		$tableline_download3 = '<tr><td %s align="right">%s&nbsp;</td><td %s colspan="4" BGCOLOR="%s">%s&nbsp;</td></tr>';
 
@@ -242,7 +246,10 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 				$tableline_title1 = '<tr BGCOLOR="%s"><td %s width="10" valign="top">%s&nbsp;</td><td %s>%s&nbsp;</td></tr>';
 				$tableline_title2 = '<tr BGCOLOR="%s"><td %s width="10" valign="top">&nbsp;</td><td %s>%s&nbsp;</td></tr>';
 				$tableline_download1 = '<tr BGCOLOR="%s"><td %s>%s</td><td %s>%s</td></tr>';
-				$tableline_inline = '<tr onmouseover="this.style.backgroundColor=\'#AAAAAA\'" onmouseout="this.style.backgroundColor=\'\'"><td style="vertical-align:middle">%s</td><td style="vertical-align:middle" width="50" align="right">%s</td><td style="vertical-align:middle" width="50">%s</td><td style="vertical-align:middle" width="50" align="center">%s</td><td style="vertical-align:middle" width="50" align="center">%s</td><td style="vertical-align:middle" width="50" align="center">%s</td></tr>';
+				$tableline_inline = '<tr onmouseover="this.style.backgroundColor=\'#AAAAAA\'" onmouseout="this.style.backgroundColor=\'\'">'
+					. '<td style="vertical-align:middle">%s</td><td style="vertical-align:middle" width="50" align="right">%s</td>'
+					. '<td style="vertical-align:middle" width="50">%s</td><td style="vertical-align:middle" width="50" align="center">%s</td>'
+					. '<td style="vertical-align:middle" width="50" align="center">%s</td><td style="vertical-align:middle" width="50" align="center">%s</td></tr>';
 
 //				$codes_query = $db->exec_SELECTquery('*', 'tx_rssecuredownload_codes', 'pid IN ('.$this->pagelist.')');
 				$codes_query = $db->exec_SELECTquery('*', 'tx_rssecuredownload_codes', '');
@@ -280,26 +287,34 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 							$count_logs_all = $count_logs_failure + $count_logs_correct;
 							$count_logs_all_text = ($count_logs_all == 1) ? $lang->getLL('table_entry') : $lang->getLL('table_entries');
 
-							$detail_link_correct = '<a href="?id='.$this->id.'&SET[function]=3&expand='.$codes_result['uid'].'">'.'<acronym style="border: none" title="'.$lang->getLL('table_detail').'">'.$image_plus.'</acronym>'.'</a>';
-							$detail_link_failure = '<a href="?id='.$this->id.'&SET[function]=2&expand='.$codes_result['uid'].'">'.'<acronym style="border: none" title="'.$lang->getLL('table_detail').'">'.$image_plus.'</acronym>'.'</a>';
+							$detail_link_correct = '<a href="?id='.$this->id.'&SET[function]=3&expand='.$codes_result['uid'].'">'
+								.'<acronym style="border: none" title="'.$lang->getLL('table_detail').'">'.$image_plus.'</acronym>'.'</a>';
+							$detail_link_failure = '<a href="?id='.$this->id.'&SET[function]=2&expand='.$codes_result['uid'].'">'
+								.'<acronym style="border: none" title="'.$lang->getLL('table_detail').'">'.$image_plus.'</acronym>'.'</a>';
 
-							$export_link_correct = '<a href="?id='.$this->id.'&format=csv&code='.$codes_result['uid'].'&type=2">'.'<acronym style="border: none" title="'.$lang->getLL('table_export').'">'.$image_export.'</acronym>'.'</a>';
-							$export_link_failure = '<a href="?id='.$this->id.'&format=csv&code='.$codes_result['uid'].'&type=1">'.'<acronym style="border: none" title="'.$lang->getLL('table_export').'">'.$image_export.'</acronym>'.'</a>';
-							$export_link_all     = '<a href="?id='.$this->id.'&format=csv&code='.$codes_result['uid'].'&type=0">'.'<acronym style="border: none" title="'.$lang->getLL('table_export').'">'.$image_export.'</acronym>'.'</a>';
+							$export_link_correct = '<a href="?id='.$this->id.'&format=csv&code='.$codes_result['uid'].'&type=2">'
+								.'<acronym style="border: none" title="'.$lang->getLL('table_export').'">'.$image_export.'</acronym>'.'</a>';
+							$export_link_failure = '<a href="?id='.$this->id.'&format=csv&code='.$codes_result['uid'].'&type=1">'
+								.'<acronym style="border: none" title="'.$lang->getLL('table_export').'">'.$image_export.'</acronym>'.'</a>';
+							$export_link_all     = '<a href="?id='.$this->id.'&format=csv&code='.$codes_result['uid'].'&type=0">'
+								.'<acronym style="border: none" title="'.$lang->getLL('table_export').'">'.$image_export.'</acronym>'.'</a>';
 //Overwrite for temporary disabled
 //							$export_link_correct = '<acronym style="border: none" title="'.$lang->getLL('table_export').' '.$lang->getLL('coming_soon').'">'.$image_export.'</acronym>';
 //							$export_link_failure = '<acronym style="border: none" title="'.$lang->getLL('table_export').' '.$lang->getLL('coming_soon').'">'.$image_export.'</acronym>';
 //							$export_link_all     = '<acronym style="border: none" title="'.$lang->getLL('table_export').' '.$lang->getLL('coming_soon').'">'.$image_export.'</acronym>';
 
-							$delete_link_correct = '<a href="?id='.$this->id.'&delete=1&code='.$codes_result['uid'].'&type=2" onclick="return confirm(\''.$lang->getLL('table_delete').' '.$count_logs_correct.' '.$count_logs_correct_text.'?\')">'.'<acronym style="border: none" title="'.$lang->getLL('table_delete').' '.$count_logs_correct.' '.$count_logs_correct_text.'">'.$image_delete.'</acronym>'.'</a>';
-							$delete_link_failure = '<a href="?id='.$this->id.'&delete=1&code='.$codes_result['uid'].'&type=1" onclick="return confirm(\''.$lang->getLL('table_delete').' '.$count_logs_failure.' '.$count_logs_failure_text.'?\')">'.'<acronym style="border: none" title="'.$lang->getLL('table_delete').' '.$count_logs_failure.' '.$count_logs_failure_text.'">'.$image_delete.'</acronym>'.'</a>';
-							$delete_link_all     = '<a href="?id='.$this->id.'&delete=1&code='.$codes_result['uid'].'&type=0" onclick="return confirm(\''.$lang->getLL('table_delete').' '.$count_logs_all.' '.$count_logs_all_text.'?\')">'.'<acronym style="border: none" title="'.$lang->getLL('table_delete').' '.$count_logs_all.' '.$count_logs_all_text.'">'.$image_delete.'</acronym>'.'</a>';
+							$delete_link_correct = '<a href="?id='.$this->id.'&delete=1&code='.$codes_result['uid'].'&type=2" onclick="return confirm(\''.$lang->getLL('table_delete').' '.$count_logs_correct.' '.$count_logs_correct_text.'?\')">'
+								.'<acronym style="border: none" title="'.$lang->getLL('table_delete').' '.$count_logs_correct.' '.$count_logs_correct_text.'">'.$image_delete.'</acronym>'.'</a>';
+							$delete_link_failure = '<a href="?id='.$this->id.'&delete=1&code='.$codes_result['uid'].'&type=1" onclick="return confirm(\''.$lang->getLL('table_delete').' '.$count_logs_failure.' '.$count_logs_failure_text.'?\')">'
+								.'<acronym style="border: none" title="'.$lang->getLL('table_delete').' '.$count_logs_failure.' '.$count_logs_failure_text.'">'.$image_delete.'</acronym>'.'</a>';
+							$delete_link_all     = '<a href="?id='.$this->id.'&delete=1&code='.$codes_result['uid'].'&type=0" onclick="return confirm(\''.$lang->getLL('table_delete').' '.$count_logs_all.' '.$count_logs_all_text.'?\')">'
+								.'<acronym style="border: none" title="'.$lang->getLL('table_delete').' '.$count_logs_all.' '.$count_logs_all_text.'">'.$image_delete.'</acronym>'.'</a>';
 
-							$content_inline = '<table border="0" cellpadding="1" cellspacing="0" width="100%">';
-							$content_inline .= sprintf($tableline_inline, $lang->getLL('table_access_success'), $count_logs_correct, $count_logs_correct_text, $detail_link_correct, $export_link_correct, $delete_link_correct);
-							$content_inline .= sprintf($tableline_inline, $lang->getLL('table_access_failure'), $count_logs_failure, $count_logs_failure_text, $detail_link_failure, $export_link_failure, $delete_link_failure);
-							$content_inline .= sprintf($tableline_inline, $lang->getLL('table_access_all'), $count_logs_all, $count_logs_all_text, '&nbsp;', $export_link_all, $delete_link_all);
-							$content_inline .= '</table>';
+							$content_inline = '<table border="0" cellpadding="1" cellspacing="0" width="100%">'
+								.sprintf($tableline_inline, $lang->getLL('table_access_success'), $count_logs_correct, $count_logs_correct_text, $detail_link_correct, $export_link_correct, $delete_link_correct)
+								.sprintf($tableline_inline, $lang->getLL('table_access_failure'), $count_logs_failure, $count_logs_failure_text, $detail_link_failure, $export_link_failure, $delete_link_failure)
+								.sprintf($tableline_inline, $lang->getLL('table_access_all'), $count_logs_all, $count_logs_all_text, '&nbsp;', $export_link_all, $delete_link_all)
+								.'</table>';
 							$content .= sprintf($tableline_download1, $color, $brd_full, $lang->getLL('table_access'), $brd_full, $content_inline);
 						} else {
 							$content .= sprintf($tableline_download1, $color, $brd_full, $lang->getLL('table_access'), $brd_full, '<span style="font-weight:bold;">'.$lang->getLL('no-download-yet').'</span>');
@@ -361,12 +376,13 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 							if ($count_logs > 0) {
 								for ($i_logs = 1; $i_logs <= $count_logs; $i_logs++) {
 									$logs_result = $db->sql_fetch_assoc($logs_query);
-									$link_delete = '<a href="?id='.$this->id.'&delete=1&code='.$logs_result['uid'].'&type=3&expand='.$codes_result['uid'].'" onclick="return confirm(\''.$lang->getLL('table_delete_this').'?\')">'.'<acronym style="border: none" title="'.$lang->getLL('table_delete_this').'">'.$image_delete.'</acronym>'.'</a>';
+									$link_delete = '<a href="?id='.$this->id.'&delete=1&code='.$logs_result['uid'].'&type=3&expand='.$codes_result['uid'].'" onclick="return confirm(\''.$lang->getLL('table_delete_this').'?\')">'
+										.'<acronym style="border: none" title="'.$lang->getLL('table_delete_this').'">'.$image_delete.'</acronym>'.'</a>';
 									if ($i_logs < $count_logs) {
 										$content .= sprintf($tableline_download1, $brd_dot, 5, $i_logs, $brd_dot, $color, $lang->getLL('table_datetime'), $brd_dot, $color, date($lang->getLL('table_datetime_format'), $logs_result['accesstime']), $brd_dot, 5, $link_delete);
 									} else {
 										$content .= sprintf($tableline_download1, $brd_full, 5, $i_logs, $brd_dot, $color, $lang->getLL('table_datetime'), $brd_dot, $color, date($lang->getLL('table_datetime_format'), $logs_result['accesstime']), $brd_full, 5, $link_delete);
-									};
+									}
 									$content .= sprintf($tableline_download2, $color, $brd_dot, $lang->getLL('table_r_browser'), $brd_dot, $logs_result['rbrowser']);
 									if ($logs_result['ripadress'] <> '') {
 										$content .= sprintf($tableline_download2, $color, $brd_dot, $lang->getLL('table_r_ipadress'), $brd_dot, $logs_result['ripadress']);
@@ -382,7 +398,7 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 										$content .= sprintf($tableline_download2, $color, $brd_dot, $lang->getLL('table_errortext'), $brd_dot, sprintf($lang->getLL('error'.$logs_result['error']), $logs_result['errortext']));
 									} else {
 										$content .= sprintf($tableline_download2, $color, $brd_full, $lang->getLL('table_errortext'), $brd_full, sprintf($lang->getLL('error'.$logs_result['error']), $logs_result['errortext']));
-									};
+									}
 								}
 							} else {
 								$content .= sprintf($tableline_download3, $brd_full, $count_logs, $brd_full, $color, $lang->getLL('download-yet-wrong'));
@@ -446,11 +462,14 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 							if ($count_logs > 0) {
 								for ($i_logs = 1; $i_logs <= $count_logs; $i_logs++) {
 									$logs_result = $db->sql_fetch_assoc($logs_query);
-									$link_delete = '<a href="?id='.$this->id.'&delete=1&code='.$logs_result['uid'].'&type=3&expand='.$codes_result['uid'].'" onclick="return confirm(\''.$lang->getLL('table_delete_this').'?\')">'.'<acronym style="border: none" title="'.$lang->getLL('table_delete_this').'">'.$image_delete.'</acronym>'.'</a>';
+									$link_delete = '<a href="?id='.$this->id.'&delete=1&code='.$logs_result['uid'].'&type=3&expand='.$codes_result['uid'].'" onclick="return confirm(\''.$lang->getLL('table_delete_this').'?\')">'
+										.'<acronym style="border: none" title="'.$lang->getLL('table_delete_this').'">'.$image_delete.'</acronym>'.'</a>';
 									if ($i_logs < $count_logs) {
-										$content .= sprintf($tableline_download1, $brd_dot, 4, $i_logs, $brd_dot, $color, $lang->getLL('table_datetime'), $brd_dot, $color, date($lang->getLL('table_datetime_format'), $logs_result['accesstime']), $brd_dot, 4, $link_delete);
+										$content .= sprintf($tableline_download1, $brd_dot, 4, $i_logs, $brd_dot, $color, $lang->getLL('table_datetime'), $brd_dot, $color, 
+											date($lang->getLL('table_datetime_format'), $logs_result['accesstime']), $brd_dot, 4, $link_delete);
 									} else {
-										$content .= sprintf($tableline_download1, $brd_full, 4, $i_logs, $brd_dot, $color, $lang->getLL('table_datetime'), $brd_dot, $color, date($lang->getLL('table_datetime_format'), $logs_result['accesstime']), $brd_full, 4, $link_delete);
+										$content .= sprintf($tableline_download1, $brd_full, 4, $i_logs, $brd_dot, $color, $lang->getLL('table_datetime'), $brd_dot, $color, 
+											date($lang->getLL('table_datetime_format'), $logs_result['accesstime']), $brd_full, 4, $link_delete);
 									};
 									$content .= sprintf($tableline_download2, $color, $brd_dot, $lang->getLL('table_r_browser'), $brd_dot, $logs_result['rbrowser']);
 									if ($logs_result['ripadress'] <> '') {
