@@ -36,8 +36,9 @@ class tx_rssecuredownload_pi1_wizicon {
 	 *
 	 * @param	array		$wizardItems: The wizard items
 	 * @return	Modified array with wizard items
+	 * @access	public
 	 */
-	function proc($wizardItems)	{
+	public function proc($wizardItems)	{
 //		global $LANG;
 
 		$LL = $this->includeLocalLang();
@@ -57,7 +58,7 @@ class tx_rssecuredownload_pi1_wizicon {
 	 *
 	 * @return	The array with language labels
 	 */
-	function includeLocalLang()	{
+	private function includeLocalLang()	{
 		$llFile = t3lib_extMgm::extPath('rs_securedownload').'locallang.xml';
 		$LOCAL_LANG = t3lib_div::readLLXMLfile($llFile, $GLOBALS['LANG']->lang);
 

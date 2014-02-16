@@ -33,10 +33,10 @@ require_once(PATH_tslib.'class.tslib_pibase.php');
  * @subpackage	tx_rssecuredownload
  */
 class tx_rssecuredownload_pi1 extends tslib_pibase {
-	var $prefixId      = 'tx_rssecuredownload_pi1';	// Same as class name
-	var $prefixString  = 'tx-rssecuredownload-pi1'; // Same as class name, but "_" replaced with "-" (used for names)
-	var $scriptRelPath = 'pi1/class.tx_rssecuredownload_pi1.php';	// Path to this script relative to the extension dir.
-	var $extKey        = 'rs_securedownload';	// The extension key.
+	private $prefixId      = 'tx_rssecuredownload_pi1';	// Same as class name
+	private $prefixString  = 'tx-rssecuredownload-pi1'; // Same as class name, but "_" replaced with "-" (used for names)
+	private $scriptRelPath = 'pi1/class.tx_rssecuredownload_pi1.php';	// Path to this script relative to the extension dir.
+	private $extKey        = 'rs_securedownload';	// The extension key.
 
 	/**
 	 * Main method of the PlugIn
@@ -44,8 +44,9 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 	 * @param	string		$content: The content of the PlugIn
 	 * @param	array		$conf: The PlugIn Configuration
 	 * @return	string		The content that should be displayed on the website
+	 * @access	public
 	 */
-	function main($content, $conf) {
+	public function main($content, $conf) {
 		//global $LANG;
 
 		//initiate
@@ -226,8 +227,9 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 	 * @param	string		$field: The field name
 	 * @param	string		$sheet: The sheet with the field
 	 * @return	string		The value of selected FlexForm field
+	 * @access	private
 	 */
-	function FF($field, $sheet='') {
+	private function FF($field, $sheet='') {
 		$result = '';
 		if (empty($sheet)) {
 			$result = $this->pi_getFFvalue($this->cObj->data['pi_flexform'], $field);
@@ -241,8 +243,9 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 	 * Returns the data of the User-Computer
 	 *
 	 * @return	Array		Array with the user-computer data
+	 * @access	private
 	 */
-	function UserDataArray() {
+	private function UserDataArray() {
 		$result = array();
 		$result['accesstime'] = date('U');
 		$result['rbrowser']   = $_SERVER['HTTP_USER_AGENT'];

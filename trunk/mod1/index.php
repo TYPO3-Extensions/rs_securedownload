@@ -44,12 +44,10 @@ $BE_USER->modAccess($MCONF, 1);	// This checks permissions and exits if the user
  * @subpackage	tx_rssecuredownload
  */
 class  tx_rssecuredownload_module1 extends t3lib_SCbase {
-	var $pageinfo;
-	var $pagelist = '';
-	var $csvContent = array();
-	var $currentRowNumber = 0;
-	var $currentColNumber = 0;
-	var $lang;
+	private $pageinfo;
+	private $pagelist = '';
+	private $csvContent = array();
+	private $lang;
 	/**
 	 * Initializes the Module
 	 *
