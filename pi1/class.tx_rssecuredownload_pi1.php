@@ -33,10 +33,10 @@ require_once(PATH_tslib.'class.tslib_pibase.php');
  * @subpackage	tx_rssecuredownload
  */
 class tx_rssecuredownload_pi1 extends tslib_pibase {
-	private $prefixId      = 'tx_rssecuredownload_pi1';	// Same as class name
-	private $prefixString  = 'tx-rssecuredownload-pi1'; // Same as class name, but "_" replaced with "-" (used for names)
-	private $scriptRelPath = 'pi1/class.tx_rssecuredownload_pi1.php';	// Path to this script relative to the extension dir.
-	private $extKey        = 'rs_securedownload';	// The extension key.
+	public $prefixId      = 'tx_rssecuredownload_pi1';	// Same as class name
+	public $prefixString  = 'tx-rssecuredownload-pi1'; // Same as class name, but "_" replaced with "-" (used for names)
+	public $scriptRelPath = 'pi1/class.tx_rssecuredownload_pi1.php';	// Path to this script relative to the extension dir.
+	public $extKey        = 'rs_securedownload';	// The extension key.
 
 	/**
 	 * Main method of the PlugIn
