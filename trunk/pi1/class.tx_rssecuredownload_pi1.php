@@ -136,9 +136,11 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 							}
 
 							if (file_exists('rssecuredownload.php')) {
-								$subpartArray['###SUB_DOWNLOAD###'] = $this->cObj->substituteMarker($t['download'], '###DOWNLOAD###', '<a href="'.'rssecuredownload.php">'.$this->pi_getLL('start_download').'</a>');
+								$subpartArray['###SUB_DOWNLOAD###'] = 
+									$this->cObj->substituteMarker($t['download'], '###DOWNLOAD###', '<a href="'.'rssecuredownload.php">'.$this->pi_getLL('start_download').'</a>');
 							} else {
-								$subpartArray['###SUB_DOWNLOAD###'] = $this->cObj->substituteMarker($t['download'], '###DOWNLOAD###', '<a href="'.$pluginPath.'rssecuredownload.php">'.$this->pi_getLL('start_download').'</a>');
+								$subpartArray['###SUB_DOWNLOAD###'] = 
+									$this->cObj->substituteMarker($t['download'], '###DOWNLOAD###', '<a href="'.$pluginPath.'rssecuredownload.php">'.$this->pi_getLL('start_download').'</a>');
 							}
 
 							$db->exec_INSERTquery('tx_rssecuredownload_logs', $log );
