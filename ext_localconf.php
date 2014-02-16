@@ -10,5 +10,5 @@ t3lib_extMgm::addPItoST43($_EXTKEY, 'pi1/class.tx_rssecuredownload_pi1.php', '_p
 t3lib_extMgm::addTypoScript($_EXTKEY, 'setup', '
 	tt_content.shortcut.20.0.conf.tx_rssecuredownload_codes = < plugin.'.t3lib_extMgm::getCN($_EXTKEY).'_pi1
 	tt_content.shortcut.20.0.conf.tx_rssecuredownload_codes.CMD = singleView
-',43);
+', 43);
 ?>

@@ -14,7 +14,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'description' => 'Display Downloads only with correct code',
 	'category' => 'plugin',
 	'shy' => 0,
-	'version' => '0.2.2',
+	'version' => '0.2.3',
 	'dependencies' => '',
 	'conflicts' => '',
 	'priority' => '',
@@ -34,7 +34,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'constraints' => array(
 		'depends' => array(
 			'typo3' => '4.5.0-4.7.99',
-			'php' => '4.1.0-0.0.0',
+			'php' => '5.2.0-0.0.0',
 		),
 		'conflicts' => array(
 		),
