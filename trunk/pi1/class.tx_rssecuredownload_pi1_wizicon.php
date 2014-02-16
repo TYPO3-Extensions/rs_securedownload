@@ -38,14 +38,14 @@ class tx_rssecuredownload_pi1_wizicon {
 	 * @return	Modified array with wizard items
 	 */
 	function proc($wizardItems)	{
-		global $LANG;
+//		global $LANG;
 
 		$LL = $this->includeLocalLang();
 
 		$wizardItems['plugins_tx_rssecuredownload_pi1'] = array(
 			'icon'=>t3lib_extMgm::extRelPath('rs_securedownload').'pi1/ce_wiz.gif',
-			'title'=>$LANG->getLLL('pi1_title', $LL),
-			'description'=>$LANG->getLLL('pi1_plus_wiz_description', $LL),
+			'title'=>$GLOBALS['LANG']->getLLL('pi1_title', $LL),
+			'description'=>$GLOBALS['LANG']->getLLL('pi1_plus_wiz_description', $LL),
 			'params'=>'&defVals[tt_content][CType]=list&defVals[tt_content][list_type]=rs_securedownload_pi1'
 		);
 

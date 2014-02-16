@@ -46,7 +46,7 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 	 * @return	string		The content that should be displayed on the website
 	 */
 	function main($content, $conf) {
-		global $LANG;
+		//global $LANG;
 
 		//initiate
 		$this->pi_initPIflexForm();
@@ -86,8 +86,6 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 			$t['error'] = $this->cObj->getSubpart($t['total'], '###SUB_ERROR###');
 			$t['download'] = $this->cObj->getSubpart($t['total'], '###SUB_DOWNLOAD###');
 			$t['form'] = $this->cObj->getSubpart($t['total'], '###SUB_FORM###');
-		} else {
-// ### For dubug purposes only ###: debug('No template code found!');
 		}
 
 		$markerArray = array();
