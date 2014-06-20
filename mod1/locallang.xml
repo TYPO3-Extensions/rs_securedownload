@@ -16,7 +16,7 @@
 			<label index="no-download-defined">No secure download has been defined</label>
 			<label index="no-download-yet">No download attempts found</label>
 			<label index="download-yet-wrong">download attempts with wrong password</label>
-			<label index="download-yet-correct">download attempts with correct password</label>
+			<label index="download-yet-correct">downloads with correct password</label>
 			<label index="no-ip-logging">IP logging was disabled at access time</label>
 <!-- don't change those lines - BEGIN -->
 			<label index="error1">This code doesn't exist: &quot;%s&quot;</label>
@@ -58,7 +58,7 @@
 			<label index="no-download-defined">Es wurde kein sicherer Download angelegt</label>
 			<label index="no-download-yet">Keine Download Versuche gefunden</label>
 			<label index="download-yet-wrong">Download Versuche mit falschem Kennwort</label>
-			<label index="download-yet-correct">Download Versuche mit richtigem Kennwort</label>
+			<label index="download-yet-correct">Downloads mit richtigem Kennwort</label>
 			<label index="no-ip-logging">IP Speicherung war bei Zugriff deaktiviert</label>
 <!-- Aendern Sie nicht diese Zeilen - ANFANG -->
 			<label index="error1">Dieser Code existiert nicht: &quot;%s&quot;</label>

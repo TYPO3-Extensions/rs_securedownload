@@ -485,10 +485,10 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 									};
 								}
 							} else {
-								$content .= sprintf($tableline_download3, $brd_full, $count_logs, $brd_full, $color, $lang->getLL('download-yet-wrong'));
+								$content .= sprintf($tableline_download3, $brd_full, $count_logs, $brd_full, $color, $lang->getLL('download-yet-correct'));
 							}
 						} else {
-							$content .= sprintf($tableline_download3, $brd_full, $count_logs, $brd_full, $color, $lang->getLL('download-yet-wrong'));
+							$content .= sprintf($tableline_download3, $brd_full, $count_logs, $brd_full, $color, $lang->getLL('download-yet-correct'));
 						}
 					}
 					$content .= '</table>';
@@ -545,13 +545,13 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 
 		switch($this->csvOutputType)	{
 			case 2:
-				$logs_query = $db->exec_SELECTquery($fields, 'tx_rssecuredownload_logs', 'docid='.$this->deleteCode.' AND error='.'0'.' AND deleted='.'0');
+				$logs_query = $db->exec_SELECTquery($fields, 'tx_rssecuredownload_logs', 'docid='.$this->csvOutputCode.' AND error='.'0'.' AND deleted='.'0');
 			break;
 			case 1:
-				$logs_query = $db->exec_SELECTquery($fields, 'tx_rssecuredownload_logs', 'docid='.$this->deleteCode.' AND NOT error='.'0'.' AND deleted='.'0');
+				$logs_query = $db->exec_SELECTquery($fields, 'tx_rssecuredownload_logs', 'docid='.$this->csvOutputCode.' AND NOT error='.'0'.' AND deleted='.'0');
 			break;
 			case 0:
-				$logs_query = $db->exec_SELECTquery($fields, 'tx_rssecuredownload_logs', 'docid='.$this->deleteCode.' AND deleted='.'0');
+				$logs_query = $db->exec_SELECTquery($fields, 'tx_rssecuredownload_logs', 'docid='.$this->csvOutputCode.' AND deleted='.'0');
 			break;
 		}
 
