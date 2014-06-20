@@ -298,10 +298,6 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 								.'<acronym style="border: none" title="'.$lang->getLL('table_export').'">'.$image_export.'</acronym>'.'</a>';
 							$export_link_all     = '<a href="?id='.$this->id.'&format=csv&code='.$codes_result['uid'].'&type=0">'
 								.'<acronym style="border: none" title="'.$lang->getLL('table_export').'">'.$image_export.'</acronym>'.'</a>';
-//Overwrite for temporary disabled
-//							$export_link_correct = '<acronym style="border: none" title="'.$lang->getLL('table_export').' '.$lang->getLL('coming_soon').'">'.$image_export.'</acronym>';
-//							$export_link_failure = '<acronym style="border: none" title="'.$lang->getLL('table_export').' '.$lang->getLL('coming_soon').'">'.$image_export.'</acronym>';
-//							$export_link_all     = '<acronym style="border: none" title="'.$lang->getLL('table_export').' '.$lang->getLL('coming_soon').'">'.$image_export.'</acronym>';
 
 							$delete_link_correct = '<a href="?id='.$this->id.'&delete=1&code='.$codes_result['uid'].'&type=2" onclick="return confirm(\''.$lang->getLL('table_delete').' '.$count_logs_correct.' '.$count_logs_correct_text.'?\')">'
 								.'<acronym style="border: none" title="'.$lang->getLL('table_delete').' '.$count_logs_correct.' '.$count_logs_correct_text.'">'.$image_delete.'</acronym>'.'</a>';
