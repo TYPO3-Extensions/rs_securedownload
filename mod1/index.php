@@ -157,8 +157,8 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 				</script>
 			';
 
-			$headerSection = $this->doc->getHeader('pages', $this->pageinfo, 
-				$this->pageinfo['_thePath']).'<br />'.$GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.path').': '.t3lib_div::fixed_lgd_cs($this->pageinfo['_thePath'], -50);
+//			$headerSection = $this->doc->getHeader('pages', $this->pageinfo, 
+//				$this->pageinfo['_thePath']).'<br />'.$GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.path').': '.t3lib_div::fixed_lgd_cs($this->pageinfo['_thePath'], -50);
 
 			$this->content.=$this->doc->startPage($GLOBALS['LANG']->getLL('title'));
 			$this->content.=$this->doc->header($GLOBALS['LANG']->getLL('title'));
@@ -240,14 +240,13 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 		$query_pagelist = ' AND pid IN ('.$this->pagelist.')';
 		$query_pagelist = '';
 
-		switch((string)$this->MOD_SETTINGS['function'])	{
+		switch((string)$this->MOD_SETTINGS['function']) {
 			case 1:
 				// override table structure only for this case
 				$tableline_title1 = '<tr BGCOLOR="%s"><td %s width="10" valign="top">%s&nbsp;</td><td %s>%s&nbsp;</td></tr>';
-				$tableline_title2 = '<tr BGCOLOR="%s"><td %s width="10" valign="top">&nbsp;</td><td %s>%s&nbsp;</td></tr>';
 				$tableline_download1 = '<tr BGCOLOR="%s"><td %s>%s</td><td %s>%s</td></tr>';
 				$tableline_inline = '<tr onmouseover="this.style.backgroundColor=\'#AAAAAA\'" onmouseout="this.style.backgroundColor=\'\'">'
-					. '<td style="vertical-align:middle">%s</td><td style="vertical-align:middle" width="50" align="right">%s</td>'
+					. '<td style="vertical-align:middle">%s</td><td style="vertical-align:middle" width="50" align="right">%s&nbsp;</td>'
 					. '<td style="vertical-align:middle" width="50">%s</td><td style="vertical-align:middle" width="50" align="center">%s</td>'
 					. '<td style="vertical-align:middle" width="50" align="center">%s</td><td style="vertical-align:middle" width="50" align="center">%s</td></tr>';
 
@@ -271,7 +270,7 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 						$content .= sprintf($tableline_title1, $color, $brd_dot, $lang->getLL('table_description'), $brd_dot, $codes_result['description']);
 
 						if ($codes_result['deleted'] == 1) {
-							$content .= sprintf($tableline_title2, $color, $brd_dot, $brd_dot, '<span style="color: red;">'.$lang->getLL('table_deleted').'!!</span>');
+							$content .= sprintf($tableline_title1, $color, $brd_dot, '', $brd_dot, '<span style="color: red;">'.$lang->getLL('table_deleted').'!!</span>');
 						}
 
 						$logs_query = $db->exec_SELECTquery('error', 'tx_rssecuredownload_logs', 'docid='.$codes_result['uid'].' AND deleted='.'0'.$query_pagelist);
