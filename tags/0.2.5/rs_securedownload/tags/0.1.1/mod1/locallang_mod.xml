@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for module &quot;web_txrssecuredownloadM1&quot; - header, description</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="mlang_tabs_tab">Secure Download</label>
+			<label index="mlang_labels_tabdescr">Secure Download - Analysis and reporting</label>
+			<label index="mlang_labels_tablabel">Secure Download - Analysis and reporting</label>
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="mlang_tabs_tab">Sicherer Download</label>
+			<label index="mlang_labels_tabdescr">Sicherer Download - Analyse und Auswertung</label>
+			<label index="mlang_labels_tablabel">Sicherer Download - Analyse und Auswertung</label>
+		</languageKey>
+	</data>
+</T3locallang>
