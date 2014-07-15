@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for plugin &quot;tx_rssecuredownload_pi1&quot;</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="titleall">All downloads</label>
+<!-- don't change those lines - BEGIN -->
+			<label index="error1">(This code doesn't exist: &quot;%s&quot;)</label>
+			<label index="error2">(This code is expired or not valid yet)</label>
+			<label index="error3">(This code is deactivated)</label>
+<!-- don't change those lines - END -->
+			<label index="send_download">Download</label>
+			<label index="start_download">click here to start the download</label>
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="titleall">Alle Downloads</label>
+<!-- Aendern Sie nicht diese Zeilen - ANFANG -->
+			<label index="error1">(Dieser Code existiert nicht: &quot;%s&quot;)</label>
+			<label index="error2">(Dieser Code ist abgelaufen oder noch nicht g&#252;ltig!)</label>
+			<label index="error3">(Dieser Code wurde deaktiviert!)</label>
+<!-- Aendern Sie nicht diese Zeilen - ENDE -->
+			<label index="send_download">Download</label>
+			<label index="start_download">Zum Starten des Downloads hier klicken</label>
+		</languageKey>
+	</data>
+</T3locallang>
