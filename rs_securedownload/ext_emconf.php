@@ -3,7 +3,7 @@
 /***************************************************************
  * Extension Manager/Repository config file for ext "rs_securedownload".
  *
- * Auto generated 15-07-2014 19:58
+ * Auto generated 15-07-2014 20:49
  *
  * Manual updates:
  * Only the data in the array - everything else is removed by next
