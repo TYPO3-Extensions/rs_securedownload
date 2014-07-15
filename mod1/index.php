@@ -55,8 +55,6 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 	 * @access public
 	 */
 	public function init() {
-//		global $BE_USER,$LANG,$BACK_PATH,$TCA_DESCR,$TCA,$CLIENT,$TYPO3_CONF_VARS;
-
 		parent::init();
 
 		// get the subpages list
@@ -107,8 +105,6 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 	 * @access public
 	 */
 	public function main() {
-//		global $BE_USER,$LANG,$BACK_PATH,$TCA_DESCR,$TCA,$CLIENT,$TYPO3_CONF_VARS;
-
 		// Access check!
 		// The page will show only if there is a valid page and if this page may be viewed by the user
 		$this->pageinfo = t3lib_BEfunc::readPageAccess($this->id, $this->perms_clause);
@@ -156,9 +152,6 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 					goto_id(\'#rs'.t3lib_div::_GET('expand').'\');
 				</script>
 			';
-
-//			$headerSection = $this->doc->getHeader('pages', $this->pageinfo, 
-//				$this->pageinfo['_thePath']).'<br />'.$GLOBALS['LANG']->sL('LLL:EXT:lang/locallang_core.xml:labels.path').': '.t3lib_div::fixed_lgd_cs($this->pageinfo['_thePath'], -50);
 
 			$this->content.=$this->doc->startPage($GLOBALS['LANG']->getLL('title'));
 			$this->content.=$this->doc->header($GLOBALS['LANG']->getLL('title'));

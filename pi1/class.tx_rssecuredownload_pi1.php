@@ -24,7 +24,6 @@
 
 require_once(PATH_tslib.'class.tslib_pibase.php');
 
-
 /**
  * Plugin 'Secure Download' for the 'rs_securedownload' extension.
  *
