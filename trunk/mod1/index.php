@@ -27,10 +27,15 @@
 unset($MCONF);
 require_once('conf.php');
 require_once($BACK_PATH.'init.php');
-require_once($BACK_PATH.'template.php');
+
+if (version_compare(TYPO3_branch, '6.0', '<')) {
+	require_once($BACK_PATH.'template.php');
+}
 
 $LANG->includeLLFile('EXT:rs_securedownload/mod1/locallang.xml');
-require_once(PATH_t3lib.'class.t3lib_scbase.php');
+
+if (!class_exists('t3lib_scbase')) require_once(PATH_t3lib.'class.t3lib_scbase.php');
+
 $BE_USER->modAccess($MCONF, 1);	// This checks permissions and exits if the users has no permission for entry.
 	// DEFAULT initialization of a module [END]
 
@@ -156,7 +161,8 @@ class  tx_rssecuredownload_module1 extends t3lib_SCbase {
 			$this->content.=$this->doc->startPage($GLOBALS['LANG']->getLL('title'));
 			$this->content.=$this->doc->header($GLOBALS['LANG']->getLL('title'));
 			$this->content.=$this->doc->spacer(5);
-			$this->content.=$this->doc->section('', $this->doc->funcMenu($headerSection, t3lib_BEfunc::getFuncMenu($this->id, 'SET[function]', $this->MOD_SETTINGS['function'], $this->MOD_MENU['function'])));
+			$this->content.=$this->doc->section('', 
+				$this->doc->funcMenu($headerSection, t3lib_BEfunc::getFuncMenu($this->id, 'SET[function]', $this->MOD_SETTINGS['function'], $this->MOD_MENU['function'], 'index.php')));
 			$this->content.=$this->doc->divider(5);
 
 			// Delete, if requested
