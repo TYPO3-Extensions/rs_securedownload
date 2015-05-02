@@ -60,8 +60,7 @@ class tx_rssecuredownload_pi1_wizicon {
 	 */
 	private function includeLocalLang()	{
 		$llFile = t3lib_extMgm::extPath('rs_securedownload').'locallang.xml';
-		$LOCAL_LANG = t3lib_div::readLLXMLfile($llFile, $GLOBALS['LANG']->lang);
-
+		$LOCAL_LANG =  t3lib_div::readLLfile($llFile, $GLOBALS['LANG']->lang);
 		return $LOCAL_LANG;
 	}
 }
