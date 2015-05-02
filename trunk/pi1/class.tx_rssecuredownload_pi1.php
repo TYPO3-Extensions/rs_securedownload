@@ -96,7 +96,7 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 			'###SUB_FORM###' => '',
 		);
 
-		if ($this->piVars['action'] != '') {
+		if (($this->piVars['senderuid'] == $uid) && ($this->piVars['action'] != '')) {
 			$action = $this->piVars['action'];
 			$givenCode = $this->piVars['code'];
 		} else {
@@ -186,6 +186,7 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 						$markerTemp['###FORM_ACTION###'] = $this->pi_getPageLink($pid);
 						$markerTemp['###FORM_FIELDS###'] = '<input type="hidden" name="'.$this->prefixId.'[action]" value="checkCode" />';
 						$markerTemp['###FORM_FIELDS###'] .= '<input type="hidden" name="'.$this->prefixId.'[download]" value="'.$downloadid.'" />';
+						$markerTemp['###FORM_FIELDS###'] .= '<input type="hidden" name="'.$this->prefixId.'[senderuid]" value="'.$uid.'" />';
 						$markerTemp['###FORM_FIELDS###'] .= '<input type="text" name="'.$this->prefixId.'[code]" value="'.$row['codeprompt'].'" />&nbsp;&nbsp;';
 						$markerTemp['###FORM_FIELDS###'] .= '<input type="submit" value="'.$this->pi_getLL('send_download').'" />';
 						$subpartArray['###SUB_FORM###'] = $this->cObj->substituteMarkerArray($t['form'], $markerTemp);
@@ -208,6 +209,7 @@ class tx_rssecuredownload_pi1 extends tslib_pibase {
 						$markerTemp['###FORM_ACTION###'] = $this->pi_getPageLink($pid);
 						$markerTemp['###FORM_FIELDS###'] = '<input type="hidden" name="'.$this->prefixId.'[action]" value="checkCode" />';
 						$markerTemp['###FORM_FIELDS###'] .= '<input type="hidden" name="'.$this->prefixId.'[download]" value="'.$downloadid.'" />';
+						$markerTemp['###FORM_FIELDS###'] .= '<input type="hidden" name="'.$this->prefixId.'[senderuid]" value="'.$uid.'" />';
 						$markerTemp['###FORM_FIELDS###'] .= '<input type="text" name="'.$this->prefixId.'[code]" value="'.$row['codeprompt'].'" />&nbsp;&nbsp;';
 						$markerTemp['###FORM_FIELDS###'] .= '<input type="submit" value="'.$this->pi_getLL('send_download').'" />';
 						$subpartArray['###SUB_FORM###'] = $this->cObj->substituteMarkerArray($t['form'], $markerTemp);
