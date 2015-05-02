@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2008-2014 Rene <typo3@rs-softweb.de>
+*  (c) 2008-2015 Rene <typo3@rs-softweb.de>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -39,17 +39,13 @@ class tx_rssecuredownload_pi1_wizicon {
 	 * @access	public
 	 */
 	public function proc($wizardItems)	{
-//		global $LANG;
-
 		$LL = $this->includeLocalLang();
-
 		$wizardItems['plugins_tx_rssecuredownload_pi1'] = array(
 			'icon'=>t3lib_extMgm::extRelPath('rs_securedownload').'pi1/ce_wiz.gif',
 			'title'=>$GLOBALS['LANG']->getLLL('pi1_title', $LL),
 			'description'=>$GLOBALS['LANG']->getLLL('pi1_plus_wiz_description', $LL),
 			'params'=>'&defVals[tt_content][CType]=list&defVals[tt_content][list_type]=rs_securedownload_pi1'
 		);
-
 		return $wizardItems;
 	}
 

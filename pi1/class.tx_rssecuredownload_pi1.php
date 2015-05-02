@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2008-2014 Rene <typo3@rs-softweb.de>
+*  (c) 2008-2015 Rene <typo3@rs-softweb.de>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
