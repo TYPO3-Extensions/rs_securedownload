@@ -1,0 +1,15 @@
+conf.py:
+  copyright: 2008-2015
+  project: Secure Download
+  version: 0.3
+  release: 0.3.2
+  latex_documents:
+  - - Index
+    - rs_securedownload.tex
+    - Display Downloads only with correct code
+    - Rene S.
+    - manual
+  latex_elements:
+    papersize: a4paper
+    pointsize: 10pt
+    preamble: \usepackage{typo3}

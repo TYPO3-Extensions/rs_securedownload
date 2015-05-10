@@ -1,0 +1,20 @@
+.. |img-3|      image:: ../../Images/manual_html_424718f7.png
+.. :align: left
+.. :border: 0
+.. :name: Grafik10
+
+.. |img-5|      image:: ../../Images/manual_html_m51aa42d4.png
+.. :align: left
+.. :border: 0
+.. :name: Grafik1
+
+.. |img-6|      image:: ../../Images/manual_html_2d858b1d.png
+.. :align: left
+.. :border: 0
+.. :name: Grafik3
+
+.. |img-7|      image:: ../../Images/manual_html_18a25c21.png
+.. :align: left
+.. :border: 0
+.. :name: Grafik4
+

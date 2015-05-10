@@ -1,0 +1,4 @@
+.. |img-10|     image:: ../Images/manual_html_m46ce57b7.png
+.. :align: left
+.. :border: 0
+.. :name: Grafik6
