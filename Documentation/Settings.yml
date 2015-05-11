@@ -1,6 +1,6 @@
 conf.py:
   copyright: 2008-2015
-  project: Secure Download
+  project: Secure Download Form
   version: 0.3
   release: 0.3.2
   latex_documents:

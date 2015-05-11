@@ -21,7 +21,7 @@ Secure Download
 		en
 
 	:Description:
-		Manual for TYPO3 extension "Secure Download" (rs_securedownload) \- Display Downloads only with correct code
+		Manual for TYPO3 extension "Secure Download Form" (rs_securedownload) \- Display Downloads only with correct code
 
 	:Keywords:
 		secure, download, secure-download, forBeginners, forAdmins

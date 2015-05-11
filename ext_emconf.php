@@ -11,7 +11,7 @@
  ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = array(
-	'title' => 'Secure Download',
+	'title' => 'Secure Download Form',
 	'description' => 'Display Downloads only with correct code',
 	'category' => 'plugin',
 	'shy' => 0,

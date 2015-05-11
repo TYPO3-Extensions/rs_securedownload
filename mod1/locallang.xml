@@ -6,7 +6,7 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="title">Secure Download</label>
+			<label index="title">Secure Downloads</label>
 			<label index="function1">Codes Overview</label>
 			<label index="function2">Codes wrong</label>
 			<label index="function3">Codes correct</label>
@@ -48,7 +48,7 @@
 			<label index="csv-download_datetime">Y-m-d_H-i</label>
 		</languageKey>
 		<languageKey index="de" type="array">
-			<label index="title">Sicherer Download</label>
+			<label index="title">Sicherer Downloads</label>
 			<label index="function1">Kennw&#246;rter &#220;berblick</label>
 			<label index="function2">Kennw&#246;rter FALSCH</label>
 			<label index="function3">Kennw&#246;rter RICHTIG</label>
@@ -65,7 +65,7 @@
 			<label index="error2">Dieser Code ist abgelaufen oder noch nicht g&#252;ltig!</label>
 			<label index="error3">Dieser Code wurde deaktiviert!</label>
 <!-- Aendern Sie nicht diese Zeilen - ENDE -->
-			<label index="please_select_page">Bitte wählen Sie im Seitenbaum eine Seite mit Sicheren Downloads aus.</label>
+			<label index="please_select_page">Bitte w&#228;hlen Sie im Seitenbaum eine Seite mit Sicheren Downloads aus.</label>
 			<label index="table_title">Titel</label>
 			<label index="table_entry">Eintrag</label>
 			<label index="table_entries">Eintr&#228;ge</label>

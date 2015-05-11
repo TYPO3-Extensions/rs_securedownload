@@ -12,6 +12,7 @@
 			<label index="tx_rssecuredownload_codes.codeprompt">codeprompt</label>
 			<label index="tx_rssecuredownload_codes.code">code</label>
 			<label index="tx_rssecuredownload_codes.file">file (max. 1)</label>
+			<label index="tx_rssecuredownload_codes.numberuses">Number of usages</label>
 			<label index="tx_rssecuredownload_logs">Secure Download Log</label>
 			<label index="tx_rssecuredownload_logs.docid">document ID</label>
 			<label index="tx_rssecuredownload_logs.accesstime">accesstime</label>
@@ -20,7 +21,7 @@
 			<label index="tx_rssecuredownload_logs.rname">Remote Name</label>
 			<label index="tx_rssecuredownload_logs.error">error type</label>
 			<label index="tx_rssecuredownload_logs.errortext">error type</label>
-			<label index="tt_content.list_type_pi1">Secure Download</label>
+			<label index="tt_content.list_type_pi1">Secure Download Form</label>
 			<label index="tt_content.pi_flexform.sheet_general">Download selection</label>
 			<label index="tt_content.pi_flexform.downloadselect">Download selection (max 1)</label>
 			<label index="tt_content.pi_flexform.tryall">Try all saved codes (ignores value in Download selection)</label>
@@ -41,7 +42,7 @@
 			<label index="tx_rssecuredownload_logs.rname">Benutzer Name</label>
 			<label index="tx_rssecuredownload_logs.error">Fehlertyp</label>
 			<label index="tx_rssecuredownload_logs.errortext">Fehlertext</label>
-			<label index="tt_content.list_type_pi1">Sicherer Download</label>
+			<label index="tt_content.list_type_pi1">Sicheres Download Formular</label>
 			<label index="tt_content.pi_flexform.sheet_general">Download Auswahl</label>
 			<label index="tt_content.pi_flexform.downloadselect">Download Auswahl (max. 1)</label>
 			<label index="tt_content.pi_flexform.tryall">Teste alle gespeicherten Kennw&#246;rter (keine Beachtung von Download Auswahl)</label>
