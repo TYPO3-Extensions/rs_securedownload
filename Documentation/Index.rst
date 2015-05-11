@@ -57,4 +57,4 @@ Secure Download
 	UsersManual/Index
 	Administration/Index
 	KnownProblems/Index
-	To-doList/Index
+	TodoList/Index
